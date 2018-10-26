@@ -9,6 +9,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Toolkit;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+
 import java.awt.FlowLayout;
 import java.awt.Color;
 import javax.swing.SwingConstants;
@@ -37,6 +39,12 @@ public class VentanaOpciones extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaOpciones() {
+		
+		JLabel labelTamanyo = new JLabel("Resoluci√≥n:");
+		JLabel labelFondo = new JLabel();
+		JButton btnAtras = new JButton("Atras");
+		JLabel labelMusica = new JLabel("Musica:");
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -44,18 +52,21 @@ public class VentanaOpciones extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel labelTamanyo = new JLabel("TAMA—O PANTALLA");
 		labelTamanyo.setHorizontalAlignment(SwingConstants.CENTER);
-		labelTamanyo.setForeground(Color.ORANGE);
-		labelTamanyo.setBackground(Color.WHITE);
 		labelTamanyo.setBounds(63, 89, 101, 14);
 		labelTamanyo.setOpaque(true);
-		labelTamanyo.setBackground(Color.BLUE);
 		contentPane.add(labelTamanyo);
 		
-		JLabel label = new JLabel("");
-		label.setBounds(-284, 10, 1003, 1023);
-		label.setIcon(new ImageIcon(VentanaOpciones.class.getResource("/imagenes/imagenOpciones.jpg")));
-		contentPane.add(label);
+		labelMusica.setHorizontalAlignment(SwingConstants.CENTER);
+		labelMusica.setBounds(100,100,105,20);
+		contentPane.add(labelMusica);
+		
+		btnAtras.setHorizontalAlignment(SwingConstants.SOUTH);
+		btnAtras.setBounds(168, 215, 87, 25);
+		contentPane.add(btnAtras);
+		
+		labelFondo.setBounds(-284, 10, 1003, 1023);
+		labelFondo.setIcon(new ImageIcon(VentanaOpciones.class.getResource("/imagenes/imagenOpciones.jpg")));
+		contentPane.add(labelFondo);
 	}
 }
