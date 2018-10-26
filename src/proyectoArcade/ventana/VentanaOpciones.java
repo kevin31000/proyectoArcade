@@ -1,4 +1,4 @@
-package proyectoArcade;
+package proyectoArcade.ventana;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -43,9 +43,11 @@ public class VentanaOpciones extends JFrame {
 		JLabel labelTamanyo = new JLabel("Resolución:");
 		JLabel labelFondo = new JLabel();
 		JButton btnAtras = new JButton("Atras");
-		JLabel labelMusica = new JLabel("Musica:");
+		JLabel labelMusica = new JLabel("  Musica:");
+		labelMusica.setForeground(Color.WHITE);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setIconImage(new ImageIcon(getClass().getResource("/imagenes/MaquinaArcade.png")).getImage());
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -53,20 +55,17 @@ public class VentanaOpciones extends JFrame {
 		contentPane.setLayout(null);
 		
 		labelTamanyo.setHorizontalAlignment(SwingConstants.CENTER);
-		labelTamanyo.setBounds(63, 89, 101, 14);
-		labelTamanyo.setOpaque(true);
+		labelTamanyo.setBounds(22, 81, 101, 14);
 		contentPane.add(labelTamanyo);
 		
-		labelMusica.setHorizontalAlignment(SwingConstants.CENTER);
-		labelMusica.setBounds(100,100,105,20);
+		labelMusica.setBounds(32,97,105,20);
 		contentPane.add(labelMusica);
 		
-		btnAtras.setHorizontalAlignment(SwingConstants.SOUTH);
 		btnAtras.setBounds(168, 215, 87, 25);
 		contentPane.add(btnAtras);
 		
-		labelFondo.setBounds(-284, 10, 1003, 1023);
-		labelFondo.setIcon(new ImageIcon(VentanaOpciones.class.getResource("/imagenes/imagenOpciones.jpg")));
+		labelFondo.setBounds(-279, 0, 1003, 1023);
+		labelFondo.setIcon(new ImageIcon(VentanaOpciones.class.getResource("/imagenes/6839513-grey-wallpaper.jpg")));
 		contentPane.add(labelFondo);
 	}
 }
