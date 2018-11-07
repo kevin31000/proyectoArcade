@@ -8,7 +8,7 @@ import java.awt.image.BufferStrategy;
 public class Dibujo extends Canvas{
 	
 	private BufferStrategy buffer;
-	private Graphics graficos;
+	private Graphics g;
 	
 	public Dibujo(int ancho, int alto) {
 		this.setPreferredSize(new Dimension(ancho, alto));
@@ -22,9 +22,10 @@ public class Dibujo extends Canvas{
 			return;
 		}
 		
-		graficos = buffer.getDrawGraphics();
+		g = buffer.getDrawGraphics();
 		//aqui voy a dibujar
-		graficos.dispose();
+		
+		g.dispose();
 		buffer.show();
 		
 		
