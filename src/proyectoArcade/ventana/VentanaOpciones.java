@@ -47,7 +47,7 @@ public class VentanaOpciones extends JFrame {
 	public VentanaOpciones() {
 		setTitle("Opciones");
 		
-		JLabel labelTamanyo = new JLabel("Resolución:");
+		JLabel labelTamanyo = new JLabel("Resoluciï¿½n:");
 		JLabel labelFondo = new JLabel();
 		JButton btnAtras = new JButton("Atr\u00E1s");
 		btnAtras.addActionListener(new ActionListener() {
@@ -57,7 +57,7 @@ public class VentanaOpciones extends JFrame {
 				VentanaOpciones.this.dispose();
 			}
 		});
-		JLabel labelMusica = new JLabel("  Música:");
+		JLabel labelMusica = new JLabel("  Mï¿½sica:");
 		labelMusica.setForeground(Color.WHITE);
 		labelTamanyo.setForeground(Color.WHITE);
 		
@@ -89,7 +89,7 @@ public class VentanaOpciones extends JFrame {
 		contentPane.add(chckbxActivar);
 		
 		labelFondo.setBounds(-279, 0, 1003, 1023);
-		labelFondo.setIcon(new ImageIcon(VentanaOpciones.class.getResource("/imagenes/6839513-grey-wallpaper.jpg")));
+		labelFondo.setIcon(new ImageIcon(VentanaOpciones.class.getResource("/imagenes/imagenInicio.jpg")));
 		contentPane.add(labelFondo);
 	}
 }
