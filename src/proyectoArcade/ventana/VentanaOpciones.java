@@ -49,14 +49,9 @@ public class VentanaOpciones extends JFrame {
 		
 		JLabel labelTamanyo = new JLabel("Resoluci�n:");
 		JLabel labelFondo = new JLabel();
-		JButton btnAtras = new JButton("Atr\u00E1s");
-		btnAtras.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				VentanaInicio ventanaInicio = new VentanaInicio();
-				ventanaInicio.setVisible(true);
-				VentanaOpciones.this.dispose();
-			}
-		});
+		JButton btnAtras = new JButton("Atras");
+		JButton btnAplicar = new JButton("Aplicar");
+		
 		JLabel labelMusica = new JLabel("  M�sica:");
 		labelMusica.setForeground(Color.WHITE);
 		labelTamanyo.setForeground(Color.WHITE);
@@ -76,8 +71,11 @@ public class VentanaOpciones extends JFrame {
 		labelMusica.setBounds(90,106,69,20);
 		contentPane.add(labelMusica);
 		
-		btnAtras.setBounds(168, 215, 87, 25);
+		btnAtras.setBounds(236, 215, 87, 25);
 		contentPane.add(btnAtras);
+		
+		btnAplicar.setBounds(95, 215, 97, 25);
+		contentPane.add(btnAplicar);
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"320X240", "640X480", "850X480", "1366X768", "1920X1080"}));
@@ -91,5 +89,24 @@ public class VentanaOpciones extends JFrame {
 		labelFondo.setBounds(-279, 0, 1003, 1023);
 		labelFondo.setIcon(new ImageIcon(VentanaOpciones.class.getResource("/imagenes/imagenInicio.jpg")));
 		contentPane.add(labelFondo);
+		
+		//Eventos botones
+		btnAtras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaInicio ventanaInicio = new VentanaInicio();
+				ventanaInicio.setVisible(true);
+				VentanaOpciones.this.dispose();
+			}
+		});
+		
+		btnAplicar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int numeroSel = comboBox.getSelectedIndex();
+				//int x = Integer.parseInt(numeros[0]);
+				//int y = Integer.parseInt(numeros[1]);		
+				//setSize(x, y);
+			}
+		});
+		
 	}
 }
