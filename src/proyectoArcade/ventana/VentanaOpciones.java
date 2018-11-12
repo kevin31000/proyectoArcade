@@ -2,7 +2,6 @@ package proyectoArcade.ventana;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -10,7 +9,6 @@ import java.awt.Toolkit;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-
 import java.awt.FlowLayout;
 import java.awt.Color;
 import javax.swing.SwingConstants;
@@ -18,7 +16,13 @@ import javax.swing.JComboBox;
 import javax.swing.JToggleButton;
 import javax.swing.JCheckBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Comparator;
 import java.awt.event.ActionEvent;
 
 public class VentanaOpciones extends JFrame {
@@ -51,8 +55,9 @@ public class VentanaOpciones extends JFrame {
 		JLabel labelFondo = new JLabel();
 		JButton btnAtras = new JButton("Atras");
 		JButton btnAplicar = new JButton("Aplicar");
-		
 		JLabel labelMusica = new JLabel("  M�sica:");
+		JComboBox comboBox = new JComboBox();
+		
 		labelMusica.setForeground(Color.WHITE);
 		labelTamanyo.setForeground(Color.WHITE);
 		
@@ -77,12 +82,11 @@ public class VentanaOpciones extends JFrame {
 		btnAplicar.setBounds(95, 215, 97, 25);
 		contentPane.add(btnAplicar);
 		
-		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"320X240", "640X480", "850X480", "1366X768", "1920X1080"}));
 		comboBox.setBounds(213, 78, 87, 20);
 		contentPane.add(comboBox);
 		
-		JCheckBox chckbxActivar = new JCheckBox("Activar");
+		JCheckBox chckbxActivar = new JCheckBox("Mutear");
 		chckbxActivar.setBounds(223, 105, 69, 23);
 		contentPane.add(chckbxActivar);
 		
@@ -101,12 +105,30 @@ public class VentanaOpciones extends JFrame {
 		
 		btnAplicar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int numeroSel = comboBox.getSelectedIndex();
-				//int x = Integer.parseInt(numeros[0]);
-				//int y = Integer.parseInt(numeros[1]);		
-				//setSize(x, y);
-			}
-		});
+				DefaultComboBoxModel<String> modeloLista = (DefaultComboBoxModel<String>) comboBox.getModel();
+				String tamano = modeloLista.getElementAt(comboBox.getSelectedIndex());
+				String[] nums = tamano.split("X");
+				int x = Integer.parseInt(nums[0]);
+				int y = Integer.parseInt(nums[1]);	
+				labelFondo.setBounds(0, 0, x, y);
+				setSize(x, y);
+				try {
+					String path = "src/Ficheros/Opciones.txt";
+					File afile = new File(path);//tipo fichero ya metido en java  
+					FileWriter fw;
+					fw = new FileWriter(afile);
+					BufferedWriter bw = new BufferedWriter(fw);//El fichero te lo crea despues del Buffered
+					bw.write(nums[0] + "X" + nums[1]);//va escribiendo cuando le da la gana
+					bw.newLine();
+					bw.write(chckbxActivar.isSelected() +"");
+					bw.flush();//para obligar al bw a escribir de golpe
+					bw.close(); //cierra el fichero
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+	});
 		
 	}
 }
