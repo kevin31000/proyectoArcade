@@ -33,14 +33,14 @@ public class VentanaInicio extends JFrame{
 	}
 	
 	public VentanaInicio() {
-		setTitle("Arcade\r\n");
+		setTitle("Arcade");
 		JButton btnJugar = new JButton("Jugar");
 		JButton btnSalir = new JButton("Salir");
 		JButton btnAjustes = new JButton("Ajustes");
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setIconImage(new ImageIcon(getClass().getResource("/imagenes/MaquinaArcade.png")).getImage());
-		setBounds(100, 100, 450, 300);
+		setSize(450, 450);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
