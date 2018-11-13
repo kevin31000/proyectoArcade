@@ -10,12 +10,22 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Window.Type;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class VentanaInicio extends JFrame{
 	
 	private JPanel contentPane;
 
+	int altura;
+	int anchura;
+	boolean mutear;
+	String texto;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -33,6 +43,32 @@ public class VentanaInicio extends JFrame{
 	}
 	
 	public VentanaInicio() {
+		
+		File aFicheroLectura = new File("src/Ficheros/Opciones.txt");
+		try {
+			FileReader fr = new FileReader(aFicheroLectura);
+			BufferedReader br = new BufferedReader(fr);
+			String linea = br.readLine();
+			texto = linea+"\n";
+			while(linea != null) {
+				linea = br.readLine();
+				String[] num = linea.split("X");
+				anchura = Integer.parseInt(num[0]);
+				altura = Integer.parseInt(num[1]);
+				
+				
+				}
+			br.close();
+			fr.close();
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		setSize(anchura, altura);
 		setTitle("Arcade");
 		JButton btnJugar = new JButton("Jugar");
 		JButton btnSalir = new JButton("Salir");
@@ -40,7 +76,6 @@ public class VentanaInicio extends JFrame{
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setIconImage(new ImageIcon(getClass().getResource("/imagenes/MaquinaArcade.png")).getImage());
-		setSize(450, 450);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

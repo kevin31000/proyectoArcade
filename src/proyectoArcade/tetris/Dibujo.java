@@ -1,4 +1,4 @@
-package tetris;
+package proyectoArcade.tetris;
 
 import java.awt.Canvas;
 import java.awt.Dimension;

@@ -1,4 +1,4 @@
-package tetris;
+package proyectoArcade.tetris;
 
 public class GestionPrincipal {
 	
