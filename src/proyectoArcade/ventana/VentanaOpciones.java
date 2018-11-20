@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import proyectoArcade.main;
+
 import java.awt.Toolkit;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -29,26 +32,7 @@ public class VentanaOpciones extends JFrame {
 
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaOpciones frame = new VentanaOpciones();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public VentanaOpciones() {
+	public VentanaOpciones(int anchura, int altura, boolean mute) {
 		setTitle("Opciones");
 		
 		JLabel labelTamanyo = new JLabel("Resoluci�n:");
@@ -63,7 +47,7 @@ public class VentanaOpciones extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setIconImage(new ImageIcon(getClass().getResource("/imagenes/MaquinaArcade.png")).getImage());
-		setSize(450, 450);
+		setSize(anchura, altura);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -90,15 +74,17 @@ public class VentanaOpciones extends JFrame {
 		chckbxActivar.setBounds(223, 105, 69, 23);
 		contentPane.add(chckbxActivar);
 		
-		labelFondo.setBounds(-279, 0, 1003, 1023);
+		labelFondo.setBounds(0, 0, anchura, altura);
 		labelFondo.setIcon(new ImageIcon(VentanaOpciones.class.getResource("/imagenes/imagenInicio.jpg")));
 		contentPane.add(labelFondo);
 		
 		//Eventos botones
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaInicio ventanaInicio = new VentanaInicio();
-				ventanaInicio.setVisible(true);
+				main.leerFichero();
+				VentanaInicio VI = new VentanaInicio(anchura, altura, mute);
+				VI.setSize(anchura, altura);
+				VI.setVisible(true);
 				VentanaOpciones.this.dispose();
 			}
 		});

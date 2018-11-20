@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import proyectoArcade.main;
+
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -15,28 +18,10 @@ public class VentanaSeleccionJuego extends JFrame {
 
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaSeleccionJuego frame = new VentanaSeleccionJuego();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public VentanaSeleccionJuego() {
+	public VentanaSeleccionJuego(int anchura, int altura, boolean mute) {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(450, 450);
+		setSize(anchura, altura);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -56,20 +41,24 @@ public class VentanaSeleccionJuego extends JFrame {
 		contentPane.add(btnNewButton_1);
 		
 		JButton BotonAtras = new JButton("Atr\u00E1s");
-		BotonAtras.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				VentanaInicio nuevaVentana = new VentanaInicio();
-				nuevaVentana.setVisible(true);
-				VentanaSeleccionJuego.this.dispose();
-			}
-		});
 		BotonAtras.setBounds(10, 227, 59, 23);
 		contentPane.add(BotonAtras);
 		
-		JLabel lblNewLabel = new JLabel("New label");
+		JLabel lblNewLabel = new JLabel();
 		lblNewLabel.setIcon(new ImageIcon(VentanaSeleccionJuego.class.getResource("/imagenes/imagenInicio.jpg")));
 		lblNewLabel.setBounds(-238, 0, 735, 369);
 		contentPane.add(lblNewLabel);
+		
+		//Eventos
+		BotonAtras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				main.leerFichero();
+				VentanaInicio VI = new VentanaInicio(anchura, altura, mute);
+				VI.setSize(anchura, altura);
+				VI.setVisible(true);
+				VentanaSeleccionJuego.this.dispose();
+			}
+		});
 	}
 
 }

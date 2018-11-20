@@ -7,6 +7,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import proyectoArcade.main;
+
 import javax.swing.JLabel;
 import java.awt.Window.Type;
 import java.awt.event.ActionListener;
@@ -20,55 +23,12 @@ import java.awt.event.ActionEvent;
 public class VentanaInicio extends JFrame{
 	
 	private JPanel contentPane;
-
-	int altura;
-	int anchura;
-	boolean mutear;
-	String texto;
 	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaInicio frame = new VentanaInicio();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 	
-	public VentanaInicio() {
-		
-		File aFicheroLectura = new File("src/Ficheros/Opciones.txt");
-		try {
-			FileReader fr = new FileReader(aFicheroLectura);
-			BufferedReader br = new BufferedReader(fr);
-			String linea = br.readLine();
-			texto = linea+"\n";
-			while(linea != null) {
-				linea = br.readLine();
-				String[] num = linea.split("X");
-				anchura = Integer.parseInt(num[0]);
-				altura = Integer.parseInt(num[1]);
-				
-				
-				}
-			br.close();
-			fr.close();
-			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		setSize(anchura, altura);
+	public VentanaInicio(int anchura, int altura, boolean mute) {
 		setTitle("Arcade");
 		JButton btnJugar = new JButton("Jugar");
 		JButton btnSalir = new JButton("Salir");
@@ -82,20 +42,13 @@ public class VentanaInicio extends JFrame{
 		contentPane.setLayout(null);
 		
 		JButton BotonJuegos = new JButton("Jugar");
-		BotonJuegos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				VentanaSeleccionJuego nuevaVentana = new VentanaSeleccionJuego();
-				nuevaVentana.setVisible(true);
-				VentanaInicio.this.dispose();
-			}
-		});
 		BotonJuegos.setBounds(308, 59, 89, 23);
 		contentPane.add(BotonJuegos);
 		
 		JButton BotonOpciones = new JButton("Opciones");
 		BotonOpciones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaOpciones ventanaOpciones = new VentanaOpciones();
+				VentanaOpciones ventanaOpciones = new VentanaOpciones(anchura, altura, mute);
 				ventanaOpciones.setVisible(true);
 				VentanaInicio.this.dispose();
 			}
@@ -104,23 +57,29 @@ public class VentanaInicio extends JFrame{
 		contentPane.add(BotonOpciones);
 		
 		JButton BotonSalir = new JButton("Salir");
+		BotonSalir.setBounds(308, 165, 89, 23);
+		contentPane.add(BotonSalir);
+		
+		JLabel labelFondo = new JLabel();
+		labelFondo.setIcon(new ImageIcon(VentanaInicio.class.getResource("/imagenes/imagenInicio.jpg")));
+		labelFondo.setBounds(0, 0, anchura, altura);
+		contentPane.add(labelFondo);
+		
+		//Eventos
+		BotonJuegos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				main.leerFichero();
+				VentanaSeleccionJuego VSJ = new VentanaSeleccionJuego(anchura, altura, mute);
+				VSJ.setSize(anchura, altura);
+				VSJ.setVisible(true);
+				VentanaInicio.this.dispose();
+			}
+		});
+		
 		BotonSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		});
-		BotonSalir.setBounds(308, 165, 89, 23);
-		contentPane.add(BotonSalir);
-		
-		JLabel labelFondo = new JLabel("New label");
-		labelFondo.setIcon(new ImageIcon(VentanaInicio.class.getResource("/imagenes/imagenInicio.jpg")));
-		labelFondo.setBounds(-204, -23, 718, 453);
-		contentPane.add(labelFondo);
-		
-
-		
-		
-		
-		
 	}
 }
