@@ -9,9 +9,13 @@ public class Dibujo extends Canvas{
 	
 	private BufferStrategy buffer;
 	private Graphics g;
+	CargarImagen imagen;
+	Tablero tablero;
 	
 	public Dibujo(int ancho, int alto) {
-		this.setPreferredSize(new Dimension(ancho, alto));
+		this.setSize(ancho, alto);
+		tablero = new Tablero(this);
+		imagen = new CargarImagen(this);
 		
 	}
 	
@@ -24,6 +28,7 @@ public class Dibujo extends Canvas{
 		
 		g = buffer.getDrawGraphics();
 		//aqui voy a dibujar
+		tablero.dibujar(g);
 		
 		g.dispose();
 		buffer.show();

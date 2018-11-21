@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 
 public class Ventana extends JFrame{
 	
-	public Ventana(String nombre, Dibujo dibujo) {
+	public Ventana(String nombre, Dibujo dibujo, int ancho, int alto) {
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle(nombre);

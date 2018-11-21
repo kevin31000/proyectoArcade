@@ -1,5 +1,6 @@
 package tetris;
 
+import java.awt.Font;
 import java.awt.Graphics;
 
 public class Tablero {
@@ -17,6 +18,7 @@ public class Tablero {
 	this.dibujo = dibujo;
 	calcularPosicion();
 	Tablero = new String [columnas][filas];
+	casillasVacias();
 	
 	}
 	
@@ -36,6 +38,18 @@ public class Tablero {
 	}
 	
 	public void dibujar(Graphics g) {
+		for (int Y = 0; Y < filas; Y++) {
+			for (int X = 0; X < columnas; X++) {
+				ParNum posicionTemporal = new ParNum(X*lado+posicion.X, Y*lado+posicion.Y); //posicion en pixeles para que no aparezca en la esquina superior
+				//dibujar casilla
+				g.drawRect((int)posicionTemporal.X, (int)posicionTemporal.Y, lado, lado);
+				
+				g.setFont(new Font("calibri", Font.PLAIN, 11));
+				g.drawString(X+","+Y,(int)posicionTemporal.X, (int)posicionTemporal.Y+11);
+			}
+		}
+		
+		dibujo.imagen.dibujarPeriferico(new ParNum(9, 19), g);
 		
 	}
 

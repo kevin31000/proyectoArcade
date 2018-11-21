@@ -2,66 +2,83 @@ package tetris;
 
 public class GestionPrincipal {
 	
-	private static Dibujo dibujo;
-	private static Ventana ventana;
-	private static int APS = 0;  //actualizaciones por segundo
-	private static int FPS = 0; //frames por segundo
-	
-	
-	public static void main(String[] args) {
-		iniciarJuego();
-		
-	}
-	
-	public static void iniciarJuego() {
-		crearVentana(950, 600, "Tetris");
-		avanceBuclePrincipal();
-	}
-	
-	public static void actualizar() {
-		APS++;
-		dibujo.dibujar();
-	}
-	
-	public static void dibujar() {
-		FPS++;
-	}
-	
-	public static void crearVentana(int ancho, int alto, String nombre) {
-		dibujo = new Dibujo(ancho, alto);
-		ventana = new Ventana(nombre, dibujo);
-	}
-	
-	public static void avanceBuclePrincipal() {
-		final int NS_SEGUNDO = 1000000000;
-		final int APS_SEGUNDO = 60;  //actualizamos el bucle principal 30 veces x segundo.
-		final int NS_ACTUAL = NS_SEGUNDO / APS_SEGUNDO;
-		
-		long tiempoReferenciaActualizacion = System.nanoTime(); 
-		long tiempoReferenciaContador = System.nanoTime();
-		
-		double delta = 0;
-		double tiempoSinProcesar;
-		
-		while(true) {
-			long tiempoInicial = System.nanoTime();
-			tiempoSinProcesar = tiempoInicial - tiempoReferenciaActualizacion;  //siempre va a ser positivo
-			tiempoReferenciaActualizacion = tiempoInicial;  //vemos cuanto ha pasado entre cada bucle
-			delta += tiempoSinProcesar/NS_ACTUAL;
-			while(delta>=1) {
-				//actualiza
-				delta--;
-				actualizar();
-			}
-			//dibuja
-			dibujar();
-			
-			if(System.nanoTime() - tiempoReferenciaContador >= NS_ACTUAL) {
-				System.out.println("APS = " + APS + "FPS = " + FPS);
-			}
-			
-		}
-		
-	}
+    static int FPS = 0, IPS = 0; //Fotogramas e iteraciones por segundo
+    static Dibujo superficieDeDibujo;
+    static Ventana ventana;
+    static boolean fondoDetenido;
+    static final int restaurarAPS = 60;
+    static int APS_OBJETIVO = restaurarAPS;
+
+    public static void main(String[] args) {
+        iniciarJuego();
+    }
+
+    public static void iniciarJuego() {
+        crearVentana(950, 600, "Tetris");
+        iterarBuclePrincipal();
+    }
+
+    public static ParNum DiferenciaEntreVentanaYSDD() { //SDD es superficie de dibujo
+        return new ParNum(ventana.getWidth() - superficieDeDibujo.getWidth(), ventana.getHeight() - superficieDeDibujo.getHeight());
+    }
+
+    public static void crearVentana(int ancho, int alto, String nombre) {
+        superficieDeDibujo = new Dibujo(ancho, alto);
+        ventana = new Ventana(nombre, superficieDeDibujo, ancho, alto);
+        superficieDeDibujo.dibujar();
+    }
+
+    private static void actualizar() {
+        superficieDeDibujo.dibujar();
+        FPS++;
+    }
+
+    private static String Cadena_APS_IPS() {
+        return "FPS = " + FPS + ", IPS = " + IPS;
+    }
+    
+    private static void dibujar() {
+        IPS++;
+    }
+
+    public static void iterarBuclePrincipal() {
+        //de aqui para abajo se empieza el cronometro
+        final int NS_POR_SEGUNDO = 1000000000; //Nanosegundos que hay en un segundo
+
+        long tiempoDeReferenciaActualizacion = System.nanoTime(); //obtener el dato de tiempo en este momento
+        long tiempoReferenciaContador = System.nanoTime();
+
+        double delta = 0, tiempoSinProcesar;
+
+        while (true) {
+
+            final int NS_POR_ACTUALIZACION = NS_POR_SEGUNDO / APS_OBJETIVO;//Fraccion de segundo para Tamaño
+
+            long tiempoInicial = System.nanoTime();
+            tiempoSinProcesar = tiempoInicial - tiempoDeReferenciaActualizacion;
+            tiempoDeReferenciaActualizacion = tiempoInicial;
+
+            delta += tiempoSinProcesar / NS_POR_ACTUALIZACION; 
+            while (delta >= 1) {
+             
+                delta--;
+                actualizar();
+            }
+            dibujar();
+            if (System.nanoTime() - tiempoReferenciaContador >= NS_POR_SEGUNDO) { //entrara cada segundo
+
+                if (!true) {//si se cambia a false el titulo de la ventana mostrara los FPS y los IPS
+                    System.out.println(Cadena_APS_IPS()); //mostrará en la consola
+                } else {
+                  
+                }
+
+                tiempoReferenciaContador = System.nanoTime(); //reinicia esta variable
+                FPS = 0; //reinicia esta variable
+                IPS = 0; //reinicia esta variable
+            }
+        }
+    }
+
 
 }
