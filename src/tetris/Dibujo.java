@@ -11,11 +11,13 @@ public class Dibujo extends Canvas{
 	private Graphics g;
 	CargarImagen imagen;
 	Tablero tablero;
+	Pieza pieza;
 	
 	public Dibujo(int ancho, int alto) {
 		this.setSize(ancho, alto);
 		tablero = new Tablero(this);
 		imagen = new CargarImagen(this);
+		pieza = new Pieza(this);
 		
 	}
 	
@@ -29,6 +31,7 @@ public class Dibujo extends Canvas{
 		g = buffer.getDrawGraphics();
 		//aqui voy a dibujar
 		tablero.dibujar(g);
+		pieza.dibujar(g);
 		
 		g.dispose();
 		buffer.show();

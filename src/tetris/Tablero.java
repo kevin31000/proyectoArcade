@@ -49,8 +49,7 @@ public class Tablero {
 			}
 		}
 		
-		dibujo.imagen.dibujarPeriferico(new ParNum(9, 19), g);
-		
+			
 	}
 
 }
