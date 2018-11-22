@@ -24,15 +24,12 @@ public class VentanaInicio extends JFrame{
 	
 	private JPanel contentPane;
 	
-	/**
-	 * Launch the application.
-	 */
-	
 	public VentanaInicio(int anchura, int altura, boolean mute) {
 		setTitle("Arcade");
 		JButton btnJugar = new JButton("Jugar");
 		JButton btnSalir = new JButton("Salir");
 		JButton btnAjustes = new JButton("Ajustes");
+		JLabel labelFondo = new JLabel();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setIconImage(new ImageIcon(getClass().getResource("/imagenes/MaquinaArcade.png")).getImage());
@@ -41,32 +38,21 @@ public class VentanaInicio extends JFrame{
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton BotonJuegos = new JButton("Jugar");
-		BotonJuegos.setBounds(308, 59, 89, 23);
-		contentPane.add(BotonJuegos);
+		btnJugar.setBounds(308, 59, 89, 23);
+		contentPane.add(btnJugar);
 		
-		JButton BotonOpciones = new JButton("Opciones");
-		BotonOpciones.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				VentanaOpciones ventanaOpciones = new VentanaOpciones(anchura, altura, mute);
-				ventanaOpciones.setVisible(true);
-				VentanaInicio.this.dispose();
-			}
-		});
-		BotonOpciones.setBounds(308, 109, 89, 23);
-		contentPane.add(BotonOpciones);
+		btnAjustes.setBounds(308, 109, 89, 23);
+		contentPane.add(btnAjustes);
 		
-		JButton BotonSalir = new JButton("Salir");
-		BotonSalir.setBounds(308, 165, 89, 23);
-		contentPane.add(BotonSalir);
+		btnSalir.setBounds(308, 165, 89, 23);
+		contentPane.add(btnSalir);
 		
-		JLabel labelFondo = new JLabel();
 		labelFondo.setIcon(new ImageIcon(VentanaInicio.class.getResource("/imagenes/imagenInicio.jpg")));
 		labelFondo.setBounds(0, 0, anchura, altura);
 		contentPane.add(labelFondo);
 		
 		//Eventos
-		BotonJuegos.addActionListener(new ActionListener() {
+		btnJugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				main.leerFichero();
 				VentanaSeleccionJuego VSJ = new VentanaSeleccionJuego(anchura, altura, mute);
@@ -76,9 +62,17 @@ public class VentanaInicio extends JFrame{
 			}
 		});
 		
-		BotonSalir.addActionListener(new ActionListener() {
+		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
+			}
+		});
+		
+		btnAjustes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaOpciones VO = new VentanaOpciones(anchura, altura, mute);
+				VO.setVisible(true);
+				VentanaInicio.this.dispose();
 			}
 		});
 	}

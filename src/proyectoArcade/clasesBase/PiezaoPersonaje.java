@@ -13,6 +13,12 @@ public class PiezaoPersonaje {
 		this.color = color;
 	}
 	
+	public PiezaoPersonaje(int coorX, int coorY) {
+		super();
+		this.coorX = coorX;
+		this.coorY = coorY;
+	}
+
 	public int getCoorX() {
 		return coorX;
 	}

@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import proyectoArcade.main;
+import proyectoArcade.PacMan.VentanaPM;
 
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
@@ -21,7 +22,7 @@ public class VentanaSeleccionJuego extends JFrame {
 	public VentanaSeleccionJuego(int anchura, int altura, boolean mute) {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(anchura, altura);
+		setSize(584, 454);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -35,10 +36,10 @@ public class VentanaSeleccionJuego extends JFrame {
 		BotonBomber.setBounds(265, 102, 159, 65);
 		contentPane.add(BotonBomber);
 		
-		JButton btnNewButton_1 = new JButton("PAC-MAN");
-		btnNewButton_1.setIcon(null);
-		btnNewButton_1.setBounds(265, 26, 159, 65);
-		contentPane.add(btnNewButton_1);
+		JButton btnPM = new JButton("PAC-MAN");
+		btnPM.setIcon(null);
+		btnPM.setBounds(265, 26, 159, 65);
+		contentPane.add(btnPM);
 		
 		JButton BotonAtras = new JButton("Atr\u00E1s");
 		BotonAtras.setBounds(10, 227, 59, 23);
@@ -46,7 +47,7 @@ public class VentanaSeleccionJuego extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel();
 		lblNewLabel.setIcon(new ImageIcon(VentanaSeleccionJuego.class.getResource("/imagenes/imagenInicio.jpg")));
-		lblNewLabel.setBounds(-238, 0, 735, 369);
+		lblNewLabel.setBounds(0, 0, anchura, altura);
 		contentPane.add(lblNewLabel);
 		
 		//Eventos
@@ -59,6 +60,15 @@ public class VentanaSeleccionJuego extends JFrame {
 				VentanaSeleccionJuego.this.dispose();
 			}
 		});
+		
+		btnPM.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				main.leerFichero();
+				VentanaPM VPM = new VentanaPM(anchura, altura, mute);
+				VPM.setSize(anchura, altura);
+				VPM.setVisible(true);
+				VentanaSeleccionJuego.this.dispose();
+			}
+		});
 	}
-
 }
