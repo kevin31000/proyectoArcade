@@ -3,6 +3,8 @@ package tetris;
 import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 
 public class Dibujo extends Canvas{
@@ -18,6 +20,8 @@ public class Dibujo extends Canvas{
 		tablero = new Tablero(this);
 		imagen = new CargarImagen(this);
 		pieza = new Pieza(this);
+		capturarTeclas();
+		setFocusable(true);
 		
 	}
 	
@@ -38,5 +42,40 @@ public class Dibujo extends Canvas{
 		
 		
 	}
+	
+	public void capturarTeclas() {
+		addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_RIGHT) {
+					pieza.posicion.moverDerecha();
+					return;
+				}if(e.getKeyCode()==KeyEvent.VK_LEFT) {
+					pieza.posicion.moverIzquierda();
+					return;
+				}if(e.getKeyCode()==KeyEvent.VK_UP) {
+					pieza.posicion.moverArriba();
+					return;
+				}if(e.getKeyCode()==KeyEvent.VK_DOWN) {
+					pieza.posicion.moverAbajo();
+					return;
+				}
+					
+				
+			}
+		});
+	}
+	
 
 }

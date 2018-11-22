@@ -7,7 +7,7 @@ public class Pieza {
 	Tablero tablero;
 	CargarImagen imagen;
 	ParNum posicion = new ParNum(3,10);
-	Tetromino Z = Tetromino.consultar("T");
+	Tetromino Z = Tetromino.consultar("Z");
 	
 	public Pieza(Dibujo superficieDeDibujo) {
 		this.superficieDeDibujo = superficieDeDibujo;

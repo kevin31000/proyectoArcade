@@ -33,7 +33,7 @@ public class Tetromino {
 		case "O": //la pieza amarilla
 			return new Tetromino(new ParNum(0,0), new ParNum(0,-1),new ParNum(1,-1),new ParNum(1,0), "O");
 		case "I": //la pieza cian
-			return new Tetromino(new ParNum(-1,0), new ParNum(0,0),new ParNum(1,0),new ParNum(0,0), "I");
+			return new Tetromino(new ParNum(-1,0), new ParNum(0,0),new ParNum(1,0),new ParNum(2,0), "I");
 		}
 		
 		//pieza por defecto

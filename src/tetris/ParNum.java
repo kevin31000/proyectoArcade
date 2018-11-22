@@ -26,6 +26,20 @@ public class ParNum {
 		Y = y;
 	}
 	
+	public void moverDerecha() {
+		X++;
+	}
+	
+	public void moverIzquierda() {
+		X--;
+	}
+	public void moverArriba() {
+		Y--;
+	}
+	public void moverAbajo() {
+		Y++;
+	}
+	
 	
 
 }
