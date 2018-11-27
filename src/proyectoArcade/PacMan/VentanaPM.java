@@ -75,8 +75,14 @@ public class VentanaPM extends JFrame {
 			public void run() {
 				int x = listaComidos.size();
 				pts.setText(x*100 + "");
-			};
+			}
 		};puntos.start();
+		
+		Thread movimiento = new Thread() {
+			public void run() {
+				mover(direccion);
+			}
+		};
 		
 	}
 	public void comer() {
