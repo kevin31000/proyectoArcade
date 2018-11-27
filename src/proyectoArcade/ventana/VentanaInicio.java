@@ -25,6 +25,7 @@ public class VentanaInicio extends JFrame{
 	private JPanel contentPane;
 	
 	public VentanaInicio(int anchura, int altura, boolean mute) {
+		System.out.println(anchura + " " + altura);
 		setTitle("Arcade");
 		JButton btnJugar = new JButton("Jugar");
 		JButton btnSalir = new JButton("Salir");

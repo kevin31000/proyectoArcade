@@ -82,6 +82,7 @@ public class VentanaOpciones extends JFrame {
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				main.leerFichero();
+				
 				VentanaInicio VI = new VentanaInicio(anchura, altura, mute);
 				VI.setSize(anchura, altura);
 				VI.setVisible(true);

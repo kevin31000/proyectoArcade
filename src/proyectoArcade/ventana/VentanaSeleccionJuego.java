@@ -1,14 +1,11 @@
 package proyectoArcade.ventana;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import proyectoArcade.main;
 import proyectoArcade.PacMan.VentanaPM;
-
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -65,8 +62,15 @@ public class VentanaSeleccionJuego extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				main.leerFichero();
 				VentanaPM VPM = new VentanaPM(anchura, altura, mute);
-				VPM.setSize(anchura, altura);
-				VPM.setVisible(true);
+				Thread hilo = new Thread() {
+					public void run() {
+						VPM.main(anchura, altura, mute);
+						VPM.setSize(anchura, altura);
+						VPM.setVisible(true);
+					};
+				};
+				hilo.start();
+				
 				VentanaSeleccionJuego.this.dispose();
 			}
 		});
