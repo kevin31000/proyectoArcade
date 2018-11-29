@@ -1,6 +1,7 @@
 package tetris;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -14,6 +15,7 @@ public class Dibujo extends Canvas{
 	CargarImagen imagen;
 	Tablero tablero;
 	Pieza pieza;
+	ColorRGB color = ColorRGB.aleatorio();
 	
 	public Dibujo(int ancho, int alto) {
 		this.setSize(ancho, alto);
@@ -34,6 +36,9 @@ public class Dibujo extends Canvas{
 		
 		g = buffer.getDrawGraphics();
 		//aqui voy a dibujar
+		g.setColor(color.Retornarse());
+		g.fillRect(0, 0, this.getWidth(), this.getHeight());
+		g.setColor(Color.BLACK);
 		tablero.dibujar(g);
 		pieza.dibujar(g);
 		
@@ -59,16 +64,16 @@ public class Dibujo extends Canvas{
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode()==KeyEvent.VK_RIGHT) {
-					pieza.posicion.moverDerecha();
+					pieza.MoverDerecha();
 					return;
 				}if(e.getKeyCode()==KeyEvent.VK_LEFT) {
-					pieza.posicion.moverIzquierda();
+					pieza.MoverIzquierda();
 					return;
 				}if(e.getKeyCode()==KeyEvent.VK_UP) {
-					pieza.posicion.moverArriba();
+					pieza.piezaActual.girarDerecha();
 					return;
 				}if(e.getKeyCode()==KeyEvent.VK_DOWN) {
-					pieza.posicion.moverAbajo();
+					pieza.MoverAbajo();
 					return;
 				}
 					

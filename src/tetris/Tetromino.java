@@ -1,11 +1,14 @@
 package tetris;
 //Al parecer las piezas del tetris se llaman tetrominos
-//Un tetrominó es una forma geométrica compuesta de cuatro cuadrados iguales, conectados entre sí ortogonalmente (lado a lado). segun wikipedia
+//Un tetrominó es una forma geométrica compuesta de cuatro
+//cuadrados iguales, conectados entre sí ortogonalmente (lado a lado). segun wikipedia
 
 public class Tetromino {
 	
 	ParNum mino[]; //llamo mino a cada cuadradito que forma cada pieza
 	String nombre;
+	
+	
 	
 	public Tetromino(ParNum mino0, ParNum mino1,ParNum mino2,ParNum mino3,String nombre) {
 		 mino = new ParNum[4];
@@ -14,6 +17,12 @@ public class Tetromino {
 		 mino[2] = mino2;
 		 mino[3] = mino3;
 		this.nombre = nombre;
+	}
+	
+	public static Tetromino Aleatorio() {  //para que nos elija una tetromino aleatorio cada vezz
+		String nombre[] = {"Z", "S", "J", "L", "T", "O", "I"};
+		
+		return consultar(nombre[(int)(Math.random()*6.9)]);
 	}
 	
 	public static Tetromino consultar(String nombre) {
@@ -38,6 +47,18 @@ public class Tetromino {
 		
 		//pieza por defecto
 		return new Tetromino(new ParNum(0,0), new ParNum(0,0),new ParNum(0,0),new ParNum(0,0), "");
+	}
+	
+	
+	public void girarDerecha(){
+		for (int i = 0; i < mino.length; i++) {
+			mino[i].girarDerecha();
+		}
+	}
+	public void girarIzquierda(){
+		for (int i = 0; i < mino.length; i++) {
+			mino[i].girarIzquierda();;
+		}
 	}
 	
 	

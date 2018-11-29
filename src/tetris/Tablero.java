@@ -42,7 +42,7 @@ public class Tablero {
 			for (int X = 0; X < columnas; X++) {
 				ParNum posicionTemporal = new ParNum(X*lado+posicion.X, Y*lado+posicion.Y); //posicion en pixeles para que no aparezca en la esquina superior
 				//dibujar casilla
-				g.drawRect((int)posicionTemporal.X, (int)posicionTemporal.Y, lado, lado);
+				g.fillRect((int)posicionTemporal.X, (int)posicionTemporal.Y, lado, lado);
 				
 				g.setFont(new Font("calibri", Font.PLAIN, 11));
 				g.drawString(X+","+Y,(int)posicionTemporal.X, (int)posicionTemporal.Y+11);

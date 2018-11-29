@@ -39,6 +39,14 @@ public class ParNum {
 	public void moverAbajo() {
 		Y++;
 	}
+	public void girarDerecha() {
+		Double giro = X;
+		X = -Y;
+		Y = giro;
+	}
+	public void girarIzquierda() {
+		
+	}
 	
 	
 
