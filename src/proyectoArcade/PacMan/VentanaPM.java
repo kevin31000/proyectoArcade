@@ -73,7 +73,7 @@ public class VentanaPM extends JFrame {
 		objMostrados.add(BF);
 		objMostrados.add(B);
 
-		Fantasma1.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/kisspng-pac-man-world-3-ghosts-red-packs-5ae218e46ff980.5320704415247669484587.jpg")));
+		Fantasma1.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/FantasmaRojo.jpg")));
 		PacMan.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/2000px-Pacman.svg.png")));
 		imagen3.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/descarga.jpg")));
 		imagen4.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/bola-acero-bingo-o-29mm.jpg")));
@@ -151,6 +151,45 @@ public class VentanaPM extends JFrame {
 				}
 			}
 		});
+	
+	Thread cambiarF = new Thread() {
+		int x = 0;
+		boolean FAExiste;
+		public void run() {
+			while (Integer.parseInt(vidas.getText()) > 0) {
+			if(x == 7) {
+				for(PiezaoPersonaje objeto : objMostrados){
+					System.out.println(objeto.getColor());
+					if(objeto.getColor().contains("FA")) {
+						Fantasma1.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/FantasmaRojo.jpg")));
+						objeto.setColor("FR");
+						FAExiste = false;
+					}
+					x = 0;
+				}
+			}if(x < 7){
+				for(PiezaoPersonaje objeto : objMostrados){
+					
+					if(objeto.getColor().contains("FA")) {
+						FAExiste = true;
+					}
+				}
+				if(FAExiste){
+					System.out.println(x);
+					x+= 1;
+					System.out.println(x);
+					
+				}try {	
+				Thread.sleep(1000);
+				} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+		}	
+		}
+		}
+	};cambiarF.start();
+
 	}
 
 	protected static void dibujar() {
@@ -164,38 +203,45 @@ public class VentanaPM extends JFrame {
 	public static void comer() {
 		int x = PM.getCoorX();
 		int y = PM.getCoorY();
-		for(PiezaoPersonaje objeto : objMostrados) {
-			if(x == objeto.getCoorX() && y == objeto.getCoorY()) {
-				if(objeto.getColor().contains("F") && !(objeto.getColor().contains("FA")) && !(objeto.getColor().equals("BF"))) {
-					System.out.println("1");
+		for (PiezaoPersonaje objeto : objMostrados) {
+			if (x == objeto.getCoorX() && y == objeto.getCoorY()) {
+				if (objeto.getColor().contains("F") && !(objeto.getColor().contains("FA")) && !(objeto.getColor().equals("BF"))) {
 					vidas.setText(Integer.parseInt(vidas.getText()) - 1 + "");
 					PM.setCoorX(50);
 					PM.setCoorY(50);
 					FR.setCoorX(80);
 					FR.setCoorY(80);
-				}if(objeto.getColor().contains("B") && !(objeto.getColor().contains("BF"))) {
+				}
+				if (objeto.getColor().contains("B") && !(objeto.getColor().contains("BF"))) {
 					System.out.println("2");
 					System.out.println(objMostrados + " " + listaComidos);
 					objMostrados.remove(objeto);
 					listaComidos.add(objeto);
 					System.out.println(objMostrados + " " + listaComidos);
-				}if(objeto.getColor().contains("BF")) {
+				}
+				if (objeto.getColor().contains("BF")) {
 					objMostrados.remove(objeto);
 					Fantasma1.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/FantasmaAzul.jpg")));
 					FR.setColor("FA_1");
-				}if(objeto.getColor().equals("FA_1")){
+				}
+				if (objeto.getColor().equals("FA_1")) {
 					objeto.setColor("FR");
-					Fantasma1.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/kisspng-pac-man-world-3-ghosts-red-packs-5ae218e46ff980.5320704415247669484587.jpg")));
+					Fantasma1.setIcon(new ImageIcon(VentanaPM.class.getResource(
+							"/imagenes/kisspng-pac-man-world-3-ghosts-red-packs-5ae218e46ff980.5320704415247669484587.jpg")));
 					objeto.setCoorX(80);
 					objeto.setCoorY(80);
 					listaComidos.add(objeto);
-				}if(objeto.getColor().equals("FA_2")){
-					
-				}if(objeto.getColor().equals("FA_3")){
-					
-				}if(objeto.getColor().equals("FA_4")){
-					
-				}if(objeto.getColor().equals(C)) {
+				}
+				if (objeto.getColor().equals("FA_2")) {
+
+				}
+				if (objeto.getColor().equals("FA_3")) {
+
+				}
+				if (objeto.getColor().equals("FA_4")) {
+
+				}
+				if (objeto.getColor().equals(C)) {
 					System.out.println("5");
 					cerezasComidas.add(objeto);
 					aumentarVida();
@@ -204,15 +250,15 @@ public class VentanaPM extends JFrame {
 			}
 		}
 	}
-	
-	//En caso de añadir las cerezas
+
+	// En caso de añadir las cerezas
 	public static void aumentarVida() {
-		if(cerezasComidas.size() == 7) {
+		if (cerezasComidas.size() == 7) {
 			vidas.setText(Integer.parseInt(vidas.getText()) + 1 + "");
 			for (PiezaoPersonaje cereza : cerezasComidas) {
 				cerezasComidas.remove(cereza);
 			}
-			
+
 		}
 	}
 
