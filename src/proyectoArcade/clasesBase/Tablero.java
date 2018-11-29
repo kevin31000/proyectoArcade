@@ -8,5 +8,7 @@ public class Tablero{
 	PiezaoPersonaje[][] tablero = new PiezaoPersonaje[x][y];
 	}
 	
-	
+	public void anyadir(PiezaoPersonaje o, PiezaoPersonaje[][] tablero) {
+		tablero[o.getCoorX()][o.getCoorY()] = o;
+	}
 }
