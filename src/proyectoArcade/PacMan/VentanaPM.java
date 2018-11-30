@@ -252,7 +252,6 @@ public class VentanaPM extends JFrame {
 			int x = 0;
 			Cereza.setVisible(false);
 			while (Integer.parseInt(vidas.getText()) > 0) {
-				System.out.println(x);
 				if(x == 7 && !(Cereza.isVisible())) {
 					Cereza.setVisible(true);
 					Cereza.setBounds(C.getCoorX(), C.getCoorY(), C.getCoorX() + 10, C.getCoorY() + 20);

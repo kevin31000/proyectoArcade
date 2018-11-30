@@ -49,8 +49,8 @@ public class VentanaScore extends JFrame{
 		//Eventos
 		btnIntroducir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//Escribir en la base de datos los puntos, el juego, el nombre
-				//y pasar a una ventana en la que te muestra las puntuaciones de ese juego
+//				Connection connection = BDScore.initBD("HighScore");
+				
 			}
 		});
 		
