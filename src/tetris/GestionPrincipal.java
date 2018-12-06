@@ -30,7 +30,7 @@ public class GestionPrincipal {
 
     private static void actualizar() {
         superficieDeDibujo.dibujar();
-        FPS++;
+        IPS++;
     }
 
     private static String Cadena_APS_IPS() {
@@ -38,7 +38,7 @@ public class GestionPrincipal {
     }
     
     private static void dibujar() {
-        IPS++;
+        FPS++;
     }
 
     public static void iterarBuclePrincipal() {
@@ -70,7 +70,7 @@ public class GestionPrincipal {
                 if (!true) {//si se cambia a false el titulo de la ventana mostrara los FPS y los IPS
                     System.out.println(Cadena_APS_IPS()); //mostrará en la consola
                 } else {
-                  System.out.println("IPS= " + IPS + " ,FPS = " + FPS);
+                  //System.out.println("IPS= " + IPS + " ,FPS = " + FPS);
                 }
 
                 tiempoReferenciaContador = System.nanoTime(); //reinicia esta variable

@@ -9,6 +9,23 @@ public class ParNum {
 		X = x;
 		Y = y;
 	}
+	public int intX(){
+        return (int)X;
+    }
+	
+	public void sustituir(double a, double b) {
+		X = a;
+		Y=b;
+	}
+    
+    public int intY(){
+        return (int)Y;
+    }
+    
+    public void adicionar(ParNum parnum) {
+    	X+=parnum.X;
+    	Y+=parnum.Y;
+    }
 
 	public double getX() {
 		return X;
@@ -45,7 +62,9 @@ public class ParNum {
 		Y = giro;
 	}
 	public void girarIzquierda() {
-		
+		Double giro = X;
+		X = Y;
+		Y = -giro;
 	}
 	
 	

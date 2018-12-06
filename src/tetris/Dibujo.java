@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
@@ -15,12 +16,13 @@ public class Dibujo extends Canvas{
 	CargarImagen imagen;
 	Tablero tablero;
 	Pieza pieza;
-	ColorRGB color = ColorRGB.aleatorio();
+	Figura fondo = new Figura();
 	
 	public Dibujo(int ancho, int alto) {
 		this.setSize(ancho, alto);
 		tablero = new Tablero(this);
 		imagen = new CargarImagen(this);
+		tablero.imagen = imagen;
 		pieza = new Pieza(this);
 		capturarTeclas();
 		setFocusable(true);
@@ -36,16 +38,19 @@ public class Dibujo extends Canvas{
 		
 		g = buffer.getDrawGraphics();
 		//aqui voy a dibujar
-		g.setColor(color.Retornarse());
-		g.fillRect(0, 0, this.getWidth(), this.getHeight());
+		fondo.RectanguloDegradadoDesactivable((Graphics2D)g, Tamaño());
 		g.setColor(Color.BLACK);
-		tablero.dibujar(g);
+		tablero.dibujar((Graphics2D)g);
 		pieza.dibujar(g);
 		
 		g.dispose();
 		buffer.show();
 		
 		
+	}
+	
+	public ParNum Tamaño() {
+		return new ParNum(this.getWidth(),this.getHeight());
 	}
 	
 	public void capturarTeclas() {
@@ -70,7 +75,7 @@ public class Dibujo extends Canvas{
 					pieza.MoverIzquierda();
 					return;
 				}if(e.getKeyCode()==KeyEvent.VK_UP) {
-					pieza.piezaActual.girarDerecha();
+					pieza.girarDerecha();
 					return;
 				}if(e.getKeyCode()==KeyEvent.VK_DOWN) {
 					pieza.MoverAbajo();

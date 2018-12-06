@@ -37,12 +37,29 @@ public class Pieza {
 	}
 	
 	public void Reiniciar() {
-		posicion = new ParNum(4,0);
+		posicion = new ParNum(4,1);
 		piezaActual = piezasSiguientes[0];
 		for (int i = 0; i < piezasSiguientes.length-1; i++) {
 			piezasSiguientes[i] = piezasSiguientes[i+1];
 		}
 		piezasSiguientes[piezasSiguientes.length-1] = Tetromino.Aleatorio();
+	}
+	
+	public void almacenarEnTablero() {
+		for (int i = 0; i < piezaActual.mino.length; i++) {
+			int columna = piezaActual.mino[i].intX()+posicion.intX();
+			int fila= piezaActual.mino[i].intY()+posicion.intY();
+			String dato = piezaActual.nombre;
+			
+			tablero.Tablero[columna][fila] = dato;
+		}
+	}
+	
+	public void girarDerecha() {
+		piezaActual.girarDerecha();
+		if(MovimientoErroneo()) {
+			piezaActual.girarIzquierda();
+		}
 	}
 	
 	public void MoverDerecha() {
@@ -64,7 +81,9 @@ public class Pieza {
 		if(MovimientoErroneo()) {
 			posicion.moverArriba();
 			//System.out.println("Reinicio de pieza");
+			almacenarEnTablero();
 			Reiniciar();
+			tablero.borrarBasurilla();
 		}
 	}
 	
@@ -76,6 +95,9 @@ public class Pieza {
 				return true;
 			}
 			if(Yactual>tablero.filas-1) {
+				return true;
+			}
+			if(!tablero.Obtener((int)Xactual, (int)Yactual).equals("")) {
 				return true;
 			}
 		}

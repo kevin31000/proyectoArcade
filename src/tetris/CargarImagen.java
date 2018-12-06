@@ -28,7 +28,7 @@ public class CargarImagen {
 	public void dibujarPeriferico(ParNum pos, Graphics g, String tipo) {
 		switch (tipo) {
 		case "Z":
-			g.setColor(Color.red);
+			g.setColor(Color.RED);
 			break;
 		case "S":
 			g.setColor(Color.GREEN);		

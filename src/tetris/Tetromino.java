@@ -30,19 +30,19 @@ public class Tetromino {
 		// a cada tetromino o pieza le pongo el nombre de la letra a la que se parece
 		//la posicion (0,0) de cada tetromino es el unico mino que nunca va a rotar, y en funcoin de esa posicion se contruye la pieza
 		case "Z": //la pieza roja
-			return new Tetromino(new ParNum(-1,-1), new ParNum(0,-1),new ParNum(0,0),new ParNum(1,0), "Z");
+			return new Tetromino(new ParNum(0,0), new ParNum(-1,-1),new ParNum(0,-1),new ParNum(1,0), "Z");
 		case "S": //la pieza verde
-			return new Tetromino(new ParNum(-1,0), new ParNum(0,0),new ParNum(0,-1),new ParNum(1,-1), "S");
+			return new Tetromino(new ParNum(0,0), new ParNum(-1,0),new ParNum(0,-1),new ParNum(1,-1), "S");
 		case "J": //la piez azul
-			return new Tetromino(new ParNum(-1,-1), new ParNum(1,0),new ParNum(0,0),new ParNum(1,0), "J");
+			return new Tetromino(new ParNum(0,0), new ParNum(-1,-1),new ParNum(-1,0),new ParNum(1,0), "J");
 		case "L": //la pieza naranja
-			return new Tetromino(new ParNum(-1,0), new ParNum(0,0),new ParNum(1,0),new ParNum(1,-1), "L");
+			return new Tetromino(new ParNum(0,0), new ParNum(-1,0),new ParNum(1,-1),new ParNum(1,0), "L");
 		case "T": //la pieza morada
-			return new Tetromino(new ParNum(-1,0), new ParNum(0,0),new ParNum(0,-1),new ParNum(1,0), "T");
+			return new Tetromino(new ParNum(0,0), new ParNum(0,-1),new ParNum(-1,0),new ParNum(1,0), "T");
 		case "O": //la pieza amarilla
 			return new Tetromino(new ParNum(0,0), new ParNum(0,-1),new ParNum(1,-1),new ParNum(1,0), "O");
 		case "I": //la pieza cian
-			return new Tetromino(new ParNum(-1,0), new ParNum(0,0),new ParNum(1,0),new ParNum(2,0), "I");
+			return new Tetromino(new ParNum(0,0), new ParNum(-1,0),new ParNum(1,0),new ParNum(2,0), "I");
 		}
 		
 		//pieza por defecto
