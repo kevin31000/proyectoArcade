@@ -2,19 +2,32 @@ package tetris;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
+import javax.imageio.ImageIO;
 
 public class CargarImagen {
 	
 	 Dibujo superficieDeDibujo; 
 	 ParNum posicionTablero;
 	 int lado; 
+	 String tetromino[] = {"Z", "S", "J", "L", "T", "O", "I"};
+	 Color TetroColor[] = {Color.RED, Color.GREEN, Color.BLUE, Color.ORANGE, Color.MAGENTA, Color.YELLOW, Color.CYAN};
+	 
+	 BufferedImage[] minos = new BufferedImage[tetromino.length];
 	 
 	 public CargarImagen(Dibujo superficieDeDibujo) {
 		 this.superficieDeDibujo = superficieDeDibujo;
 		 posicionTablero = superficieDeDibujo.tablero.posicion;
 		 lado = superficieDeDibujo.tablero.lado;
+		 cargarImagenesMinos();
 		 
 	 }
+		private void cargarImagenesMinos() {
+			for (int i = 0; i < minos.length; i++) {
+				minos[i] = cargarImagen(tetromino[i], ".jpg");
+			}
+		}
 	 
 	 public ParNum calcularPosicion(ParNum pos) {
 		 int X = (int)(pos.X*lado+posicionTablero.X);
@@ -26,32 +39,26 @@ public class CargarImagen {
 	
 	 
 	public void dibujarPeriferico(ParNum pos, Graphics g, String tipo) {
-		switch (tipo) {
-		case "Z":
-			g.setColor(Color.RED);
-			break;
-		case "S":
-			g.setColor(Color.GREEN);		
-			break;
-		case "L":
-			g.setColor(Color.ORANGE);
-			break;
-		case "J":
-			g.setColor(Color.BLUE);
-			break;
-		case "T":
-			g.setColor(Color.MAGENTA);
-			break;
-		case "O":
-			g.setColor(Color.YELLOW);
-			break;
-		case "I":
-			g.setColor(Color.CYAN);
-			break;
+		int i = 0;
+		while(!tetromino[i].equals(tipo)) {
+			i++;
+		}
+		g.drawImage(minos[i], calcularPosicion(pos).intX(), calcularPosicion(pos).intY(), superficieDeDibujo);
 		
+	}
+	
+
+	
+	public BufferedImage cargarImagen(String nombre, String extension) {
+		BufferedImage imagen = null;
+		
+		try {
+			imagen = ImageIO.read(ClassLoader.class.getResource("/imagenes/" + nombre + extension));
+		} catch (Exception e) {
+			
 		}
 		
-		g.fillRect((int)calcularPosicion(pos).X, (int)calcularPosicion(pos).Y, lado, lado);
+		return imagen;
 	}
 
 }

@@ -10,6 +10,7 @@ public class Ventana extends JFrame{
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle(nombre);
+		this.setIconImage(dibujo.imagen.cargarImagen("tetris-icon", ".jpg"));
 		//this.setSize(600, 600);
 		this.setResizable(false);
 		this.setLayout(new BorderLayout());
