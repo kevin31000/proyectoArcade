@@ -2,13 +2,15 @@ package tetris;
 
 import java.awt.Graphics;
 
-public class Pieza {
+public class Pieza implements Runnable{
 	Dibujo superficieDeDibujo;
 	Tablero tablero;
 	CargarImagen imagen;
 	ParNum posicion = new ParNum(3,10);
 	Tetromino piezaActual = Tetromino.Aleatorio();
 	Tetromino piezasSiguientes[] = new Tetromino[7];
+	Thread Hilo = new Thread(this);
+	Boolean estadoHilo = true;
 	
 	public Pieza(Dibujo superficieDeDibujo) {
 		this.superficieDeDibujo = superficieDeDibujo;
@@ -18,6 +20,7 @@ public class Pieza {
 			piezasSiguientes[i] = Tetromino.Aleatorio();
 			
 		}
+		Hilo.start();
 	}
 	
 	public void dibujar(Graphics g) {
@@ -102,6 +105,30 @@ public class Pieza {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void run() {
+		try {
+			while(true) {
+				MoverAbajo();
+				Thread.sleep(1000);
+				
+			}
+			
+		} catch (Exception e) {
+			System.err.println("tetris.Pieza.run() - Error en el hilo");
+		}
+		
+	}
+
+	public void Pausar() {
+		if(estadoHilo) {
+			Hilo.suspend();  //pausamos el hilo
+		}else {
+			Hilo.resume();   //reanudamos el hilo
+		}
+		estadoHilo = !estadoHilo;
 	}
 	
 

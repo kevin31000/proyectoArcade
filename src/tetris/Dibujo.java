@@ -80,6 +80,9 @@ public class Dibujo extends Canvas{
 				}if(e.getKeyCode()==KeyEvent.VK_DOWN) {
 					pieza.MoverAbajo();
 					return;
+				}if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+					pieza.Pausar();;
+					return;
 				}
 					
 				
