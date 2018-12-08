@@ -1,3 +1,4 @@
+
 package tetris;
 
 public class GestionPrincipal {
@@ -9,7 +10,7 @@ public class GestionPrincipal {
     static final int restaurarAPS = 60;
     static int APS_OBJETIVO = restaurarAPS;
 
-    public static void main(String[] args) {
+    public static void main(int anchura, int altura, boolean mute) {
         iniciarJuego();
     }
 

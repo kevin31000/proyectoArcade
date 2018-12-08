@@ -105,6 +105,7 @@ public class Pieza implements Runnable{
 			}
 		}
 		return false;
+		
 	}
 
 	@Override
@@ -112,7 +113,7 @@ public class Pieza implements Runnable{
 		try {
 			while(true) {
 				MoverAbajo();
-				Thread.sleep(1000);
+				Thread.sleep(500);
 				
 			}
 			

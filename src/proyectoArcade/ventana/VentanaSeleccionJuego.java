@@ -6,6 +6,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import proyectoArcade.main;
 import proyectoArcade.PacMan.VentanaPM;
+import tetris.GestionPrincipal;
+
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -64,6 +66,19 @@ public class VentanaSeleccionJuego extends JFrame {
 				Thread hilo = new Thread() {
 					public void run() {
 						VentanaPM.main(anchura, altura, mute);
+					};
+				};
+				hilo.start();
+				
+				VentanaSeleccionJuego.this.dispose();
+			}
+		});
+		BotonTetris.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				main.leerFichero();
+				Thread hilo = new Thread() {
+					public void run() {
+						GestionPrincipal.main(anchura, altura, mute);
 					};
 				};
 				hilo.start();
