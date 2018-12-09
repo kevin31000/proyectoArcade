@@ -6,44 +6,38 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
-public class CargarImagen {
+public class CargarImagen implements DatosGeneralesJuego{
 	
 	 Dibujo superficieDeDibujo; 
 	 ParNum posicionTablero;
-	 int lado; 
-	 String tetromino[] = {"Z", "S", "J", "L", "T", "O", "I"};
-	 Color TetroColor[] = {Color.RED, Color.GREEN, Color.BLUE, Color.ORANGE, Color.MAGENTA, Color.YELLOW, Color.CYAN};
+	 final String nombre_imagen_tetromino[] = {"Z", "S", "J", "L", "T", "O", "I"};
 	 
-	 BufferedImage[] minos = new BufferedImage[tetromino.length];
+	 BufferedImage[] imagen_minos = new BufferedImage[nombre_imagen_tetromino.length];
 	 
 	 public CargarImagen(Dibujo superficieDeDibujo) {
 		 this.superficieDeDibujo = superficieDeDibujo;
 		 posicionTablero = superficieDeDibujo.tablero.posicion;
-		 lado = superficieDeDibujo.tablero.lado;
 		 cargarImagenesMinos();
 		 
 	 }
 		private void cargarImagenesMinos() {
-			for (int i = 0; i < minos.length; i++) {
-				minos[i] = cargarImagen(tetromino[i], ".jpg");
+			for (int i = 0; i < imagen_minos.length; i++) {
+				imagen_minos[i] = cargarImagen(nombre_imagen_tetromino[i], ".jpg");
 			}
 		}
 	 
 	 public ParNum calcularPosicion(ParNum pos) {
-		 int X = (int)(pos.X*lado+posicionTablero.X);
-		 int Y = (int)(pos.Y*lado+posicionTablero.Y);
+		 int X = (int)(pos.X*ancho_mino+posicionTablero.X);
+		 int Y = (int)(pos.Y*alto_mino+posicionTablero.Y);
 		
 		 
 		 return new ParNum(X,Y);
 	 }
 	
 	 
-	public void dibujarPeriferico(ParNum pos, Graphics g, String tipo) {
-		int i = 0;
-		while(!tetromino[i].equals(tipo)) {
-			i++;
-		}
-		g.drawImage(minos[i], calcularPosicion(pos).intX(), calcularPosicion(pos).intY(), superficieDeDibujo);
+	public void dibujarPeriferico(ParNum pos, Graphics g, int nombre) {
+		
+		g.drawImage(imagen_minos[nombre], calcularPosicion(pos).intX(), calcularPosicion(pos).intY(), superficieDeDibujo);
 		
 	}
 	

@@ -6,22 +6,25 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-public class Tablero {
+public class Tablero implements DatosGeneralesJuego{
 	
-	final int columnas = 10;
-	final int filas = 20;
-	final int lado = 28;
-	String [][] Tablero ;
+	int [][] Tablero ;
 	Dibujo dibujo;
 	int anchoD; //ancho dibujo
 	int altoD; //alto dibujo
 	ParNum posicion;
 	CargarImagen imagen;
 	
+	Color casilla_clara = new Color(0,0,68),
+			casilla_clara2 = new Color(30,20,128),
+			casilla_oscura = new Color (30,30,93),
+			casilla_oscura2 =new Color (90,50,158);
+
+	
 	public Tablero(Dibujo dibujo) {
 	this.dibujo = dibujo;
 	calcularPosicion();
-	Tablero = new String [columnas][filas];
+	Tablero = new int [columnas][filas];
 	casillasVacias();
 	
 	}
@@ -30,7 +33,7 @@ public class Tablero {
 		
 		for (int Y = 0; Y < filas; Y++) {
 			for (int X = 0; X < columnas; X++) {
-				Tablero[X][Y] = "";
+				Tablero[X][Y] = no_tetro; 
 			}
 		}
 	}
@@ -38,29 +41,29 @@ public class Tablero {
 	public void calcularPosicion() {  //calcular la posicion del tablero dentro de nuestra superficie de dibujo (clase Dibujo)
 		anchoD = dibujo.getWidth();
 		altoD = dibujo.getHeight();
-		posicion = new ParNum((anchoD - columnas*lado)/2,(altoD - filas*lado)/2);
+		posicion = new ParNum((anchoD - ancho_tablero)/2,(altoD - alto_tablero)/2);
 	}
 	
 	public void dibujar(Graphics2D g) {
 		for (int Y = 0; Y < filas; Y++) {
 			for (int X = 0; X < columnas; X++) {
-				ParNum posicionTemporal = new ParNum(X*lado+posicion.X, Y*lado+posicion.Y+1); //posicion en pixeles para que no aparezca en la esquina superior
+				ParNum posicionTemporal = new ParNum(X*ancho_mino+posicion.X, Y*alto_mino+posicion.Y+1); //posicion en pixeles para que no aparezca en la esquina superior
 				//dibujar casilla
-				if(Tablero[X][Y] == "") { //Solo es estético estilo ajedrez en 2D
+				if(Tablero[X][Y] == no_tetro) { //Solo es estético estilo ajedrez en 2D
 					Color color = new Color(0,0,0);
 					Color color2 = new Color(0,0,0);
 					if((X+Y)%2 ==0) { //If es par..
-						color = new Color (30,30,93);
-						color2 = new Color (90,50,158);
+						color =casilla_clara;
+						color2 = casilla_clara2;
 					}else {
-						color = new Color (0,0,63);
-						color2 = new Color (30,30,93);
+						color = casilla_oscura;
+						color2 = casilla_oscura2;
 					}
 					
 					g.setPaint(new GradientPaint(20,0, color, 0,20, color2));
-					g.fillRect(posicionTemporal.intX(), posicionTemporal.intY(), lado, lado);
+					g.fillRect(posicionTemporal.intX(), posicionTemporal.intY(), ancho_mino, alto_mino);
 					g.setColor(new Color(0,0,0));
-					g.drawRect(posicionTemporal.intX(), posicionTemporal.intY(), lado, lado);
+					g.drawRect(posicionTemporal.intX(), posicionTemporal.intY(), ancho_mino, alto_mino);
 
 				}else {
 					imagen.dibujarPeriferico(new ParNum(X,Y), g, Tablero[X][Y]);
@@ -78,19 +81,19 @@ public class Tablero {
 			
 	}
 	
-	public void borrarBasurilla() {
+	public void borrarPecera() {
 		int Y = filas-1;
 		int lineas = 0;
 		
 		while(Y>=0) {
 			int X =0;
-			while(X<columnas&& !Tablero[X][Y].equals("")) {
+			while(X<columnas&& Tablero[X][Y]!=no_tetro) {
 				X++;
 			}
 			
 			if(X==columnas) {
 				lineas++;
-				bajarBasurilla(Y);
+				bajarPecera(Y);
 			}else {
 				Y--;
 			}
@@ -98,25 +101,25 @@ public class Tablero {
 		//Aqui sumaran las lineas para la puntuacion
 	}
 	
-	public void bajarBasurilla(int Y) {
+	public void bajarPecera(int Y) {
 		for (int X = 0; X < columnas; X++) {
-			Tablero[X][Y]="";
+			Tablero[X][Y]=no_tetro;
 		}
 		
 		while(Y>=0) {
 			for (int X = 0; X < columnas; X++) {
-				Tablero[X][Y]= Y==0?"":Tablero[X][Y-1]; //condicional
+				Tablero[X][Y]= Y==0?no_tetro:Tablero[X][Y-1]; //condicional
 			}
 			Y--;
 		}
 		
 	}
 	
-	public String Obtener(int X, int Y) {
+	public int Obtener(int X, int Y) {
 		if(Y>0) {
 			return Tablero[X][Y];
 		}
-		return"";
+		return no_tetro;
 		
 	}
 

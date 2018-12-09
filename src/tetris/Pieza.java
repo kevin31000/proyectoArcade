@@ -2,7 +2,7 @@ package tetris;
 
 import java.awt.Graphics;
 
-public class Pieza implements Runnable{
+public class Pieza implements Runnable, DatosGeneralesJuego{
 	Dibujo superficieDeDibujo;
 	Tablero tablero;
 	CargarImagen imagen;
@@ -52,7 +52,7 @@ public class Pieza implements Runnable{
 		for (int i = 0; i < piezaActual.mino.length; i++) {
 			int columna = piezaActual.mino[i].intX()+posicion.intX();
 			int fila= piezaActual.mino[i].intY()+posicion.intY();
-			String dato = piezaActual.nombre;
+			int dato = piezaActual.nombre;
 			
 			tablero.Tablero[columna][fila] = dato;
 		}
@@ -86,7 +86,7 @@ public class Pieza implements Runnable{
 			//System.out.println("Reinicio de pieza");
 			almacenarEnTablero();
 			Reiniciar();
-			tablero.borrarBasurilla();
+			tablero.borrarPecera();
 		}
 	}
 	
@@ -100,7 +100,7 @@ public class Pieza implements Runnable{
 			if(Yactual>tablero.filas-1) {
 				return true;
 			}
-			if(!tablero.Obtener((int)Xactual, (int)Yactual).equals("")) {
+			if(tablero.Obtener((int)Xactual, (int)Yactual)!=no_tetro){
 				return true;
 			}
 		}
