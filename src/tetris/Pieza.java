@@ -2,6 +2,11 @@ package tetris;
 
 import java.awt.Graphics;
 
+import javax.swing.JOptionPane;
+
+import proyectoArcade.main;
+import proyectoArcade.ventana.VentanaInicio;
+
 public class Pieza implements Runnable, DatosGeneralesJuego{
 	Dibujo superficieDeDibujo;
 	Tablero tablero;
@@ -113,7 +118,7 @@ public class Pieza implements Runnable, DatosGeneralesJuego{
 		try {
 			while(true) {
 				MoverAbajo();
-				Thread.sleep(500);
+				Thread.sleep(1000);
 				
 			}
 			
@@ -124,13 +129,24 @@ public class Pieza implements Runnable, DatosGeneralesJuego{
 	}
 
 	public void Pausar() {
+		int resp;
 		if(estadoHilo) {
 			Hilo.suspend();  //pausamos el hilo
+			resp = JOptionPane.showConfirmDialog(null, "¿Desea continua?", "Pausa", JOptionPane.OK_CANCEL_OPTION);
+			if(resp == 0) {
+				Hilo.resume();
+				resp = -1;
+			}else{
+				main main = new main();
+				GestionPrincipal gp = new GestionPrincipal();
+				main.main(null);
+				gp.ventana.dispose();
+			}
 		}else {
 			Hilo.resume();   //reanudamos el hilo
 		}
-		estadoHilo = !estadoHilo;
+
 	}
+}
 	
 
-}

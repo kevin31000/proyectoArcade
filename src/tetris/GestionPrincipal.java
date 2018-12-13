@@ -71,6 +71,7 @@ public class GestionPrincipal {
                 if (!true) {//si se cambia a false el titulo de la ventana mostrara los FPS y los IPS
                     System.out.println(Cadena_APS_IPS()); //mostrará en la consola
                 } else {
+            
                   //System.out.println("IPS= " + IPS + " ,FPS = " + FPS);
                 }
 
@@ -79,6 +80,10 @@ public class GestionPrincipal {
                 IPS = 0; //reinicia esta variable
             }
         }
+    }
+    
+    public static void finDelJuego() {
+ 
     }
 
 

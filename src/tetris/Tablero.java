@@ -6,6 +6,8 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
+import javax.swing.JOptionPane;
+
 public class Tablero implements DatosGeneralesJuego{
 	
 	int [][] Tablero ;
@@ -15,9 +17,9 @@ public class Tablero implements DatosGeneralesJuego{
 	ParNum posicion;
 	CargarImagen imagen;
 	
-	Color casilla_clara = new Color(0,0,68),
+	Color casilla_clara = new Color(0,0,63),
 			casilla_clara2 = new Color(30,20,128),
-			casilla_oscura = new Color (30,30,93),
+			casilla_oscura = new Color (30,40,93),
 			casilla_oscura2 =new Color (90,50,158);
 
 	
@@ -110,6 +112,8 @@ public class Tablero implements DatosGeneralesJuego{
 			for (int X = 0; X < columnas; X++) {
 				Tablero[X][Y]= Y==0?no_tetro:Tablero[X][Y-1]; //condicional
 			}
+			GestionPrincipal.finDelJuego(); //Cuando no se puedan bajar mas piezas se para el juego.
+			//JOptionPane.showMessageDialog(frame, "¡Has perdido!", "FIN DEL JUEGO", messageType);
 			Y--;
 		}
 		
