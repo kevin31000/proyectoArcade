@@ -11,7 +11,7 @@ public class Pieza implements Runnable, DatosGeneralesJuego{
 	Dibujo superficieDeDibujo;
 	Tablero tablero;
 	CargarImagen imagen;
-	ParNum posicion = new ParNum(3,10);
+	ParNum posicion = new ParNum(4,1);
 	Tetromino piezaActual = Tetromino.Aleatorio();
 	Tetromino piezasSiguientes[] = new Tetromino[7];
 	Thread Hilo = new Thread(this);
@@ -31,6 +31,7 @@ public class Pieza implements Runnable, DatosGeneralesJuego{
 	public void dibujar(Graphics g) {
 		for (int i = 0; i < 4; i++) {
 					
+
 			imagen.dibujarPeriferico(new ParNum(posicion.X+piezaActual.mino[i].X, posicion.Y+piezaActual.mino[i].Y), g, piezaActual.nombre);
 		}
 		for (int i = 0; i < piezasSiguientes.length; i++) {
@@ -58,6 +59,9 @@ public class Pieza implements Runnable, DatosGeneralesJuego{
 			int columna = piezaActual.mino[i].intX()+posicion.intX();
 			int fila= piezaActual.mino[i].intY()+posicion.intY();
 			int dato = piezaActual.nombre;
+			if(fila == 0) {
+				FinDelJuego();
+			}
 			
 			tablero.Tablero[columna][fila] = dato;
 		}
@@ -108,10 +112,12 @@ public class Pieza implements Runnable, DatosGeneralesJuego{
 			if(tablero.Obtener((int)Xactual, (int)Yactual)!=no_tetro){
 				return true;
 			}
+			
 		}
 		return false;
 		
 	}
+	
 
 	@Override
 	public void run() {
@@ -146,6 +152,22 @@ public class Pieza implements Runnable, DatosGeneralesJuego{
 			Hilo.resume();   //reanudamos el hilo
 		}
 
+	}
+	public void FinDelJuego() {
+		int resp;
+		
+		Hilo.suspend();
+		resp = JOptionPane.showConfirmDialog(null, "¿Volver al menu?", "Fin del juego", JOptionPane.OK_OPTION);
+		if(resp == 0) {
+			main main = new main();
+			GestionPrincipal gp = new GestionPrincipal();
+			main.main(null);
+			gp.ventana.dispose();
+		}else if(resp==1){
+			FinDelJuego();
+		}
+		
+		
 	}
 }
 	

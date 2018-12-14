@@ -16,6 +16,7 @@ public class Tablero implements DatosGeneralesJuego{
 	int altoD; //alto dibujo
 	ParNum posicion;
 	CargarImagen imagen;
+	int lineas;
 	
 	Color casilla_clara = new Color(0,0,63),
 			casilla_clara2 = new Color(30,20,128),
@@ -100,7 +101,7 @@ public class Tablero implements DatosGeneralesJuego{
 				Y--;
 			}
 		}
-		//Aqui sumaran las lineas para la puntuacion
+		lineas = lineas+1;
 	}
 	
 	public void bajarPecera(int Y) {

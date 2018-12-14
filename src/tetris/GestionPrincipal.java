@@ -1,6 +1,10 @@
 
 package tetris;
 
+import java.awt.BorderLayout;
+
+import javax.swing.JPanel;
+
 public class GestionPrincipal {
 	
     static int FPS = 0, IPS = 0; //Fotogramas e iteraciones por segundo

@@ -9,6 +9,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 
+import javax.swing.JLabel;
+
 public class Dibujo extends Canvas{
 	
 	private BufferStrategy buffer;
