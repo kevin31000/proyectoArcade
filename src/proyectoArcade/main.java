@@ -1,4 +1,3 @@
-
 package proyectoArcade;
 
 import java.io.BufferedReader;
