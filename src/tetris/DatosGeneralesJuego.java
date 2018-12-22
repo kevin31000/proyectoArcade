@@ -21,4 +21,5 @@ public interface DatosGeneralesJuego {
 	int ancho_tablero=columnas*ancho_mino;
 	int alto_tablero=filas*alto_mino;
 
+
 }

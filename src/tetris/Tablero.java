@@ -16,7 +16,8 @@ public class Tablero implements DatosGeneralesJuego{
 	int altoD; //alto dibujo
 	ParNum posicion;
 	CargarImagen imagen;
-	int lineas;
+	int puntuacion = 0;
+	int lineas = 0;
 	
 	Color casilla_clara = new Color(0,0,63),
 			casilla_clara2 = new Color(30,20,128),
@@ -72,11 +73,10 @@ public class Tablero implements DatosGeneralesJuego{
 					imagen.dibujarPeriferico(new ParNum(X,Y), g, Tablero[X][Y]);
 				}
 				//escribe la posicion de la casilla
-				if(false) {
-					g.setFont(new Font("calibri", Font.PLAIN, 9));
-					g.drawString(X+","+Y,(int)posicionTemporal.X+5, (int)posicionTemporal.Y+11);
-				}
-				
+				//if(false) {
+					//g.setFont(new Font("calibri", Font.PLAIN, 9));
+					//g.drawString(X+","+Y,(int)posicionTemporal.X+5, (int)posicionTemporal.Y+11);
+				//}
 
 			}
 		}
@@ -84,9 +84,18 @@ public class Tablero implements DatosGeneralesJuego{
 			
 	}
 	
+	public void dibujarPuntuacion(Graphics2D g) {
+		ParNum posicionPuntuacion = new ParNum(posicion.X-250, posicion.Y);
+		g.fillRect(posicionPuntuacion.intX(), posicionPuntuacion.intY(), 200, 50);
+		g.setColor(Color.BLUE);
+		g.drawRect(posicionPuntuacion.intX(), posicionPuntuacion.intY(), 200, 50);
+		g.setFont(new Font("calibri", Font.PLAIN, 12));
+		g.drawString("Esta es tu puntuación: " + puntuacion, posicionPuntuacion.intX()+5, posicionPuntuacion.intY()+11);
+		g.drawString("Lineas conseguidas: " + lineas, posicionPuntuacion.intX()+5, posicionPuntuacion.intY()+30);
+	}
+	
 	public void borrarPecera() {
 		int Y = filas-1;
-		int lineas = 0;
 		
 		while(Y>=0) {
 			int X =0;
@@ -96,12 +105,12 @@ public class Tablero implements DatosGeneralesJuego{
 			
 			if(X==columnas) {
 				lineas++;
+				puntuacion = puntuacion + 50;
 				bajarPecera(Y);
 			}else {
 				Y--;
 			}
 		}
-		lineas = lineas+1;
 	}
 	
 	public void bajarPecera(int Y) {
@@ -111,7 +120,7 @@ public class Tablero implements DatosGeneralesJuego{
 		
 		while(Y>=0) {
 			for (int X = 0; X < columnas; X++) {
-				Tablero[X][Y]= Y==0?no_tetro:Tablero[X][Y-1]; //condicional
+				Tablero[X][Y]= Y==0?no_tetro:Tablero[X][Y-1];//condicional
 			}
 			GestionPrincipal.finDelJuego(); //Cuando no se puedan bajar mas piezas se para el juego.
 			//JOptionPane.showMessageDialog(frame, "¡Has perdido!", "FIN DEL JUEGO", messageType);
@@ -126,6 +135,9 @@ public class Tablero implements DatosGeneralesJuego{
 		}
 		return no_tetro;
 		
+	}
+	public void aumentarPuntuacion() {
+		puntuacion++;
 	}
 
 }

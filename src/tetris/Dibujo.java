@@ -43,6 +43,7 @@ public class Dibujo extends Canvas{
 		fondo.RectanguloDegradadoDesactivable((Graphics2D)g, Tamaño());
 		g.setColor(Color.BLACK);
 		tablero.dibujar((Graphics2D)g);
+		tablero.dibujarPuntuacion((Graphics2D)g);
 		pieza.dibujar(g);
 		
 		g.dispose();
@@ -81,6 +82,7 @@ public class Dibujo extends Canvas{
 					return;
 				}if(e.getKeyCode()==KeyEvent.VK_DOWN) {
 					pieza.MoverAbajo();
+					tablero.aumentarPuntuacion();
 					return;
 				}if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
 					pieza.Pausar();;
