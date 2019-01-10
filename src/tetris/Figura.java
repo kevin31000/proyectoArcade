@@ -46,24 +46,24 @@ public class Figura {
         nuevasFranjasAleatorias();
     }
 
-    public void RectanguloDegradadoDesactivable(Graphics2D g2d, ParNum Tamaño) {
+    public void RectanguloDegradadoDesactivable(Graphics2D g2d, ParNum Tamanyo) {
         if (DegradadoActivado) {
-            Rectangulo_2Colores(g2d, Tamaño);
+            Rectangulo_2Colores(g2d, Tamanyo);
         } else {
-            Rectangulo_1Color(g2d, Tamaño);
+            Rectangulo_1Color(g2d, Tamanyo);
         }
         DesplazarDegradado();
         controlador_LimitesDegradado();
     }
 
-    public void Rectangulo_1Color(Graphics2D g2d, ParNum Tamaño) {
+    public void Rectangulo_1Color(Graphics2D g2d, ParNum Tamanyo) {
         g2d.setColor(colorPrincipal.Retornarse());
-        g2d.fill(new Rectangle2D.Double(0, 0, Tamaño.X, Tamaño.Y));
+        g2d.fill(new Rectangle2D.Double(0, 0, Tamanyo.X, Tamanyo.Y));
     }
 
-    public void Rectangulo_2Colores(Graphics2D g2d, ParNum Tamaño) {
-        calcularDegradado(g2d, Tamaño);
-        g2d.fill(new Rectangle2D.Double(0, 0, Tamaño.X, Tamaño.Y));
+    public void Rectangulo_2Colores(Graphics2D g2d, ParNum Tamanyo) {
+        calcularDegradado(g2d, Tamanyo);
+        g2d.fill(new Rectangle2D.Double(0, 0, Tamanyo.X, Tamanyo.Y));
     }
 
     public void nuevasFranjasAleatorias() {
@@ -120,21 +120,21 @@ public class Figura {
             Franja[i].X = (Franja[i].X > maxDegradadoLineal) ? maxDegradadoLineal : Franja[i].X;
             Franja[i].Y = (Franja[i].Y > maxDegradadoLineal) ? maxDegradadoLineal : Franja[i].Y;
 
-            DifFranja[i].X = (Franja[i].X + DifFranja[i].X > maxDegradadoLineal//Determina que no se salga del valor máximo
-                    || Franja[i].X + DifFranja[i].X < minDegradadoLineal) ? //Determina que no se salga del valor mínimo
+            DifFranja[i].X = (Franja[i].X + DifFranja[i].X > maxDegradadoLineal//Determina que no se salga del valor mï¿½ximo
+                    || Franja[i].X + DifFranja[i].X < minDegradadoLineal) ? //Determina que no se salga del valor mï¿½nimo
                             -DifFranja[i].X : //Lo cambia de sentido
                             DifFranja[i].X; //No le hace nada
 
-            DifFranja[i].Y = (Franja[i].Y + DifFranja[i].Y > maxDegradadoLineal//Determina que no se salga del valor máximo
-                    || Franja[i].Y + DifFranja[i].Y < minDegradadoLineal) ? //Determina que no se salga del valor mínimo
+            DifFranja[i].Y = (Franja[i].Y + DifFranja[i].Y > maxDegradadoLineal//Determina que no se salga del valor mï¿½ximo
+                    || Franja[i].Y + DifFranja[i].Y < minDegradadoLineal) ? //Determina que no se salga del valor mï¿½nimo
                             -DifFranja[i].Y : //Lo cambia de sentido
                             DifFranja[i].Y; //No le hace nada
         }
     }
     
-    private void calcularDegradado(Graphics2D g2d, ParNum Tamaño) {
+    private void calcularDegradado(Graphics2D g2d, ParNum Tamanyo) {
         if (DegradadoRadial) {
-            LimRadial = Tamaño;
+            LimRadial = Tamanyo;
             DegradadoCircular roundGradient = new DegradadoCircular(PosRadial,
                     colorSecundario.Retornarse(), colorPrincipal.Retornarse(), (int) Radio);
             g2d.setPaint(roundGradient);
@@ -143,11 +143,11 @@ public class Figura {
         } else {
             g2d.setPaint(new GradientPaint(Franja[0].intX(), Franja[0].intY(), colorSecundario.Retornarse(),
                     Franja[1].intX(), Franja[1].intY(), colorPrincipal.Retornarse(), true));
-            g2d.fill(new Rectangle2D.Double(0, 0, Tamaño.X, Tamaño.Y));
+            g2d.fill(new Rectangle2D.Double(0, 0, Tamanyo.X, Tamanyo.Y));
         }
     }
 
-    private double aleatorio() {
+    private double aleatorio2() {
         return Math.random();
     }
 
@@ -175,9 +175,9 @@ public class Figura {
    
     private ParNum movRadial = new ParNum(Math.random() * 5, Math.random() * 5);
    
-    private double Radio = aleatorio() * 600;
+    private double Radio = aleatorio2() * 600;
   
-    private double inflaciónRadial = aleatorio(5);
+    private double inflacionRadial = aleatorio(5);
   
     private double MaximaInflacion = Radio;
    
@@ -185,10 +185,10 @@ public class Figura {
 
     private void modificar_MinimoRadial(double v) {
         if (v >= MaximaInflacion) {
-            throw new Error("El valor mínimo del radio debe ser menor al máximo valor");
+            throw new Error("El valor mï¿½nimo del radio debe ser menor al mï¿½ximo valor");
         } else {
             if (v <= 1) {
-                throw new Error("El valor mínimo del radio debe ser mayor a 1");
+                throw new Error("El valor mï¿½nimo del radio debe ser mayor a 1");
             } else {
                 MinimaInflacion = v;
             }
@@ -197,7 +197,7 @@ public class Figura {
 
     private void modificar_MaximoRadial(double v) {
         if (v <= MinimaInflacion) {
-            throw new Error("El valor máximo del radio debe ser mayor al mínimo");
+            throw new Error("El valor mï¿½ximo del radio debe ser mayor al mï¿½nimo");
         } else {
             MaximaInflacion = v;
         }
@@ -229,9 +229,9 @@ public class Figura {
 
     private void cambiarRadio() {
         if (Radio < MinimaInflacion || Radio > MaximaInflacion) {
-            inflaciónRadial = -inflaciónRadial;
+            inflacionRadial = -inflacionRadial;
         }
-        Radio += inflaciónRadial;
+        Radio += inflacionRadial;
     }
 
     private class DegradadoCircular implements Paint {

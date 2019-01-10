@@ -40,7 +40,7 @@ public class Dibujo extends Canvas{
 		
 		g = buffer.getDrawGraphics();
 		//aqui voy a dibujar
-		fondo.RectanguloDegradadoDesactivable((Graphics2D)g, Tamaño());
+		fondo.RectanguloDegradadoDesactivable((Graphics2D)g, Tamanyo());
 		g.setColor(Color.BLACK);
 		tablero.dibujar((Graphics2D)g);
 		pieza.dibujar(g);
@@ -51,7 +51,7 @@ public class Dibujo extends Canvas{
 		
 	}
 	
-	public ParNum Tamaño() {
+	public ParNum Tamanyo() {
 		return new ParNum(this.getWidth(),this.getHeight());
 	}
 	
