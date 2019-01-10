@@ -97,6 +97,7 @@ public class Pieza implements Runnable, DatosGeneralesJuego{
 			Reiniciar();
 			tablero.borrarPecera();
 		}
+			
 	}
 	
 	public boolean MovimientoErroneo() {
