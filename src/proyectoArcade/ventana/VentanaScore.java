@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
 import proyectoArcade.BD.BDScore;
+import proyectoArcade.BD.Conexion;
 
 public class VentanaScore extends JFrame{
 	
@@ -59,12 +60,13 @@ public class VentanaScore extends JFrame{
 		btnIntroducir.addActionListener(new ActionListener() {
 			VentanaHighScore VHS = new VentanaHighScore();
 			public void actionPerformed(ActionEvent arg0) {
-				Connection connection = BDScore.initBD("HighScore");
-				Statement st = BDScore.usarCrearTablasBD(connection);
+				Statement st = BDScore.usarCrearTablasBD(Conexion.conectar());
 				BDScore.insertJugador(st, textField.getText(), juego, puntos);
+				closeWindow();
+//				BDScore.cerrarBD(C.conectar(), st);
 				VHS.setVisible(true);
 				VHS.setSize(500,500);
-				closeWindow();
+				
 			}
 		});
 		

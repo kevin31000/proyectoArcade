@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -84,17 +85,19 @@ private static Exception lastError = null;  // Información de último error SQL
 		}
 	}
 	
-	public static String puntosSelect( Statement st, String juego) {
+	public static ArrayList<String> puntosSelect( Statement st, String juego, ArrayList<String> list) {
 		String sentSQL = "";
 		try {
-			sentSQL = "select * from HighScore2 where nomJuego='" + secu(juego) + "'" + "order by puntos asc";
+			sentSQL = "select * from HighScore2 where nomJuego='" + secu(juego) +  "' order by puntos asc";
 			ResultSet rs = st.executeQuery( sentSQL );
-			
-			if (rs.next()) {
-				System.out.println(rs.getString("Jugador") + " - " + rs.getInt("puntos"));
+
+			while (rs.next()) {
+				list.add(rs.getString("Jugador") + " - " + rs.getInt("puntos"));
+				System.out.println(list);
 			}
 			log( Level.INFO, "BD\t" + sentSQL, null );
-			return rs.getString("Jugador") + " - " + rs.getInt("puntos");
+			rs.close();
+			return list;
 		} catch (SQLException e) {
 			log( Level.SEVERE, "Error en BD\t" + sentSQL, e );
 			e.printStackTrace();
