@@ -10,6 +10,8 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import proyectoArcade.main;
+
 public class BDScore {
 	
 private static Exception lastError = null;  // Información de último error SQL ocurrido
@@ -85,15 +87,29 @@ private static Exception lastError = null;  // Información de último error SQL
 		}
 	}
 	
+	private static boolean borrar(Statement st, String juego) {
+		String com = "";
+		try {
+			// Borrar usuario
+			com = "delete from HighScore2 where nomJuego = '"+ secu(juego) +"'";
+			logger.log( Level.INFO, "BD: " + com );
+			st.executeUpdate( com );
+			return true;
+		} catch (SQLException e2) {
+			System.out.println( "�ltimo comando: " + com );
+			e2.printStackTrace();
+			return false;
+		}
+	}
+	
 	public static ArrayList<String> puntosSelect( Statement st, String juego, ArrayList<String> list) {
 		String sentSQL = "";
 		try {
-			sentSQL = "select * from HighScore2 where nomJuego='" + secu(juego) +  "' order by puntos asc";
+			sentSQL = "select * from HighScore2 where nomJuego='" + secu(juego) +  "' order by puntos desc";
 			ResultSet rs = st.executeQuery( sentSQL );
 
 			while (rs.next()) {
 				list.add(rs.getString("Jugador") + " - " + rs.getInt("puntos"));
-				System.out.println(list);
 			}
 			log( Level.INFO, "BD\t" + sentSQL, null );
 			rs.close();
@@ -103,8 +119,8 @@ private static Exception lastError = null;  // Información de último error SQL
 			e.printStackTrace();
 			return null;
 		}
-		
 	}
+	
 	
 	private static String secu( String string ) {
 		StringBuffer ret = new StringBuffer();
@@ -136,6 +152,10 @@ private static Exception lastError = null;  // Información de último error SQL
 			logger.log( level, msg );
 		else
 			logger.log( level, msg, excepcion );
+	}
+	
+	public static void main(Statement st, String juego) {
+		borrar(st, juego);
 	}
 }
 

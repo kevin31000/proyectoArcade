@@ -1,5 +1,6 @@
-//Buscar con ctrl+F "Empieza aqui" o linea: 
-package proyectoArcade.PacMan;
+//Buscar con ctrl+F "Empieza aqui" o linea:
+
+package PacMan;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;

@@ -7,6 +7,7 @@ import proyectoArcade.BD.BDScore;
 import proyectoArcade.BD.Conexion;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -89,18 +90,42 @@ public class VentanaHighScore extends JFrame{
 				BDScore.puntosSelect(st, "Tetris", PuntuacionT);
 				BDScore.puntosSelect(st, "Pac-Man", PuntuacionPM);
 				BDScore.puntosSelect(st, "BomberMan", PuntuacionBM);
+				textPane.setText(" ");
+				textPane_1.setText(" ");
+				textPane_2.setText(" ");
 				String textoT = " ";
 				String textoPM = " ";
 				String textoBM = " ";
 				for(int t = 0; t < PuntuacionT.size(); t ++) {
 					textoT += PuntuacionT.get(t) + "\n";
 					textPane.setText(textoT);
-				}for(int pm = 0; pm < PuntuacionT.size(); pm ++) {
-					textoPM += PuntuacionPM.get(pm) + "\n";
+				}for(int pm = 0; pm < PuntuacionPM.size(); pm ++) {
+					textoPM += PuntuacionPM.get(pm) + 5 + "\n";
 					textPane_1.setText(textoPM);
-				}for(int bm = 0; bm < PuntuacionT.size(); bm ++) {
+				}for(int bm = 0; bm < PuntuacionBM.size(); bm ++) {
 					textoBM += PuntuacionBM.get(bm) + "\n";
 					textPane_1.setText(textoBM);
+				}
+				PuntuacionT.clear();
+				PuntuacionPM.clear();
+				PuntuacionBM.clear();
+			}
+		});
+		
+		btnReset.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				String respuesta = JOptionPane.showInputDialog(null, "Puntuacion de tabla a borrar", "Tetris/Pac-Man/BomberMan");
+				if(!respuesta.equals("Tetris") && !respuesta.equals("Pac-Man") && !respuesta.equals("BomberMan")) {
+					JOptionPane.showMessageDialog(null, "Tienes que introducir: Tetris, Pac-Man o BomberMan", "Error", JOptionPane.ERROR_MESSAGE);
+				}Statement st = BDScore.usarCrearTablasBD(Conexion.conectar());
+				BDScore.main(st, respuesta);
+				if(respuesta.equals("Tetris")){
+					textPane.setText(" ");
+				}if(respuesta.equals("Pac-Man")) {
+					textPane_1.setText(" ");
+				}if(respuesta.equals("BomberMan")) {
+				textPane_2.setText(" ");
 				}
 			}
 		});
