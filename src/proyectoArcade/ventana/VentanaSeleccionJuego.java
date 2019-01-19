@@ -41,7 +41,7 @@ public class VentanaSeleccionJuego extends JFrame {
 		contentPane.add(btnPM);
 		
 		JButton BotonAtras = new JButton("Atr\u00E1s");
-		BotonAtras.setBounds(10, 227, 59, 23);
+		BotonAtras.setBounds(12, 268, 93, 23);
 		contentPane.add(BotonAtras);
 		
 		JLabel lblNewLabel = new JLabel();

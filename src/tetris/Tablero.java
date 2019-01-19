@@ -16,9 +16,12 @@ public class Tablero implements DatosGeneralesJuego{
 	int altoD; //alto dibujo
 	ParNum posicion;
 	CargarImagen imagen;
-	int puntuacion = 0;
+	static int puntuacion = 0;
 	int lineas = 0;
 	
+	public static int getPuntuacion() {
+		return puntuacion;
+	}
 	Color casilla_clara = new Color(0,0,63),
 			casilla_clara2 = new Color(30,20,128),
 			casilla_oscura = new Color (30,40,93),
@@ -53,7 +56,7 @@ public class Tablero implements DatosGeneralesJuego{
 			for (int X = 0; X < columnas; X++) {
 				ParNum posicionTemporal = new ParNum(X*ancho_mino+posicion.X, Y*alto_mino+posicion.Y+1); //posicion en pixeles para que no aparezca en la esquina superior
 				//dibujar casilla
-				if(Tablero[X][Y] == no_tetro) { //Solo es estético estilo ajedrez en 2D
+				if(Tablero[X][Y] == no_tetro) { //Solo es estï¿½tico estilo ajedrez en 2D
 					Color color = new Color(0,0,0);
 					Color color2 = new Color(0,0,0);
 					if((X+Y)%2 ==0) { //If es par..
@@ -90,7 +93,7 @@ public class Tablero implements DatosGeneralesJuego{
 		g.setColor(Color.BLUE);
 		g.drawRect(posicionPuntuacion.intX(), posicionPuntuacion.intY(), 200, 50);
 		g.setFont(new Font("calibri", Font.PLAIN, 12));
-		g.drawString("Esta es tu puntuación: " + puntuacion, posicionPuntuacion.intX()+5, posicionPuntuacion.intY()+11);
+		g.drawString("Esta es tu puntuaciï¿½n: " + puntuacion, posicionPuntuacion.intX()+5, posicionPuntuacion.intY()+11);
 		g.drawString("Lineas conseguidas: " + lineas, posicionPuntuacion.intX()+5, posicionPuntuacion.intY()+30);
 	}
 	
@@ -123,7 +126,7 @@ public class Tablero implements DatosGeneralesJuego{
 				Tablero[X][Y]= Y==0?no_tetro:Tablero[X][Y-1];//condicional
 			}
 			GestionPrincipal.finDelJuego(); //Cuando no se puedan bajar mas piezas se para el juego.
-			//JOptionPane.showMessageDialog(frame, "¡Has perdido!", "FIN DEL JUEGO", messageType);
+			//JOptionPane.showMessageDialog(frame, "ï¿½Has perdido!", "FIN DEL JUEGO", messageType);
 			Y--;
 		}
 		

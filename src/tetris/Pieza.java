@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 
 import proyectoArcade.main;
 import proyectoArcade.ventana.VentanaInicio;
+import proyectoArcade.ventana.VentanaScore;
 
 public class Pieza implements Runnable, DatosGeneralesJuego{
 	Dibujo superficieDeDibujo;
@@ -139,7 +140,7 @@ public class Pieza implements Runnable, DatosGeneralesJuego{
 		int resp;
 		if(estadoHilo) {
 			Hilo.suspend();  //pausamos el hilo
-			resp = JOptionPane.showConfirmDialog(null, "¿Desea continua?", "Pausa", JOptionPane.OK_CANCEL_OPTION);
+			resp = JOptionPane.showConfirmDialog(null, "ï¿½Desea continua?", "Pausa", JOptionPane.OK_CANCEL_OPTION);
 			if(resp == 0) {
 				Hilo.resume();
 				resp = -1;
@@ -155,21 +156,19 @@ public class Pieza implements Runnable, DatosGeneralesJuego{
 
 	}
 	public void FinDelJuego() {
-		int resp;
 		
 		Hilo.suspend();
-		resp = JOptionPane.showConfirmDialog(null, "¿Volver al menu?", "Fin del juego", JOptionPane.OK_OPTION);
-		if(resp == 0) {
-			main main = new main();
+		
+			VentanaScore VS = new VentanaScore(500, 500, "Tetris", Tablero.getPuntuacion());
+			VS.setVisible(true);
+//			main main = new main();
 			GestionPrincipal gp = new GestionPrincipal();
-			main.main(null);
+//			main.main(null);
 			gp.ventana.dispose();
-		}else if(resp==1){
-			FinDelJuego();
 		}
 		
 		
 	}
-}
+
 	
 

@@ -11,6 +11,9 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+
+import proyectoArcade.BD.BDScore;
 
 public class VentanaScore extends JFrame{
 	
@@ -46,13 +49,28 @@ public class VentanaScore extends JFrame{
 		label.setIcon(new ImageIcon(VentanaInicio.class.getResource("/imagenes/imagenInicio.jpg")));
 		getContentPane().add(label);
 		
+		JLabel lblHasPerdido = new JLabel("Has perdido");
+		lblHasPerdido.setForeground(Color.WHITE);
+		lblHasPerdido.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHasPerdido.setBounds(64, 13, 253, 39);
+		getContentPane().add(lblHasPerdido);
+		
 		//Eventos
 		btnIntroducir.addActionListener(new ActionListener() {
+			VentanaHighScore VHS = new VentanaHighScore();
 			public void actionPerformed(ActionEvent arg0) {
-//				Connection connection = BDScore.initBD("HighScore");
-				
+				Connection connection = BDScore.initBD("HighScore");
+				Statement st = BDScore.usarCrearTablasBD(connection);
+				BDScore.insertJugador(st, textField.getText(), juego, puntos);
+				VHS.setVisible(true);
+				VHS.setSize(500,500);
+				closeWindow();
 			}
 		});
 		
+	}
+	
+	private void closeWindow() {
+		this.dispose(); //eliminar el hilo
 	}
 }

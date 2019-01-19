@@ -450,7 +450,7 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 	static PiezaoPersonaje M410 = new PiezaoPersonaje(23, 8, "M410");
 	static PiezaoPersonaje M411 = new PiezaoPersonaje(23, 9, "M411");
 	static PiezaoPersonaje M412 = new PiezaoPersonaje(23, 10, "M412");
-	static PiezaoPersonaje M413 = new PiezaoPersonaje(23, , "M413");
+	static PiezaoPersonaje M413 = new PiezaoPersonaje(23, 11, "M413");
 
 		//Bolas 2nda columna
 	static PiezaoPersonaje B1 = new PiezaoPersonaje(1, 2, "B1");
