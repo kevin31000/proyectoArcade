@@ -467,30 +467,63 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 	static PiezaoPersonaje M426 = new PiezaoPersonaje(23, 26, "M426");
 	static PiezaoPersonaje M427 = new PiezaoPersonaje(23, 27, "M427");
 		//Muros 26va columna
-	static PiezaoPersonaje M428 = new PiezaoPersonaje(23, 2, "M405");
-	static PiezaoPersonaje M429 = new PiezaoPersonaje(23, 3, "M406");
-	static PiezaoPersonaje M430 = new PiezaoPersonaje(23, 4, "M407");
-	static PiezaoPersonaje M431 = new PiezaoPersonaje(23, 6, "M408");
-	static PiezaoPersonaje M432 = new PiezaoPersonaje(23, 7, "M409");
-	static PiezaoPersonaje M433 = new PiezaoPersonaje(23, 8, "M410");
-	static PiezaoPersonaje M434 = new PiezaoPersonaje(23, 9, "M411");
-	static PiezaoPersonaje M435 = new PiezaoPersonaje(23, 10, "M412");
-	static PiezaoPersonaje M436 = new PiezaoPersonaje(23, 11, "M413");
-	static PiezaoPersonaje M437 = new PiezaoPersonaje(23, 12, "M414");
-	static PiezaoPersonaje M438 = new PiezaoPersonaje(23, 13, "M415");
-	static PiezaoPersonaje M439 = new PiezaoPersonaje(23, 15, "M416");
-	static PiezaoPersonaje M440 = new PiezaoPersonaje(23, 16, "M417");
-	static PiezaoPersonaje M441 = new PiezaoPersonaje(23, 17, "M418");
-	static PiezaoPersonaje M442 = new PiezaoPersonaje(23, 18, "M419");
-	static PiezaoPersonaje M443 = new PiezaoPersonaje(23, 19, "M420");
-	static PiezaoPersonaje M444 = new PiezaoPersonaje(23, 20, "M421");
-	static PiezaoPersonaje M445 = new PiezaoPersonaje(23, 21, "M422");
-	static PiezaoPersonaje M446 = new PiezaoPersonaje(23, 22, "M423");
-	static PiezaoPersonaje M447 = new PiezaoPersonaje(23, 23, "M424");
-	static PiezaoPersonaje M448 = new PiezaoPersonaje(23, 25, "M425");
-	static PiezaoPersonaje M449 = new PiezaoPersonaje(23, 26, "M426");
-	static PiezaoPersonaje M450 = new PiezaoPersonaje(23, 27, "M427");
-
+	static PiezaoPersonaje M428 = new PiezaoPersonaje(25, 2, "M428");
+	static PiezaoPersonaje M429 = new PiezaoPersonaje(25, 4, "M429");
+	static PiezaoPersonaje M430 = new PiezaoPersonaje(25, 6, "M430");
+	static PiezaoPersonaje M431 = new PiezaoPersonaje(25, 7, "M431");
+	static PiezaoPersonaje M432 = new PiezaoPersonaje(25, 9, "M432");
+	static PiezaoPersonaje M433 = new PiezaoPersonaje(25, 10, "M433");
+	static PiezaoPersonaje M434 = new PiezaoPersonaje(25, 11, "M434");
+	static PiezaoPersonaje M435 = new PiezaoPersonaje(25, 13, "M435");
+	static PiezaoPersonaje M436 = new PiezaoPersonaje(25, 14, "M436");
+	static PiezaoPersonaje M437 = new PiezaoPersonaje(25, 15, "M437");
+	static PiezaoPersonaje M438 = new PiezaoPersonaje(25, 17, "M438");
+	static PiezaoPersonaje M439 = new PiezaoPersonaje(25, 18, "M439");
+	static PiezaoPersonaje M440 = new PiezaoPersonaje(25, 19, "M440");
+	static PiezaoPersonaje M441 = new PiezaoPersonaje(25, 21, "M441");
+	static PiezaoPersonaje M442 = new PiezaoPersonaje(25, 22, "M442");
+	static PiezaoPersonaje M443 = new PiezaoPersonaje(25, 23, "M443");
+	static PiezaoPersonaje M444 = new PiezaoPersonaje(25, 25, "M444");
+	static PiezaoPersonaje M445 = new PiezaoPersonaje(25, 27, "M445");
+		//Muros 27va columna
+	static PiezaoPersonaje M446 = new PiezaoPersonaje(26, 2, "M446");
+	static PiezaoPersonaje M447 = new PiezaoPersonaje(26, 6, "M447");
+	static PiezaoPersonaje M448 = new PiezaoPersonaje(26, 7, "M448");
+	static PiezaoPersonaje M449 = new PiezaoPersonaje(26, 9, "M449");
+	static PiezaoPersonaje M450 = new PiezaoPersonaje(26, 10, "M450");
+	static PiezaoPersonaje M451 = new PiezaoPersonaje(26, 11, "M451");
+	static PiezaoPersonaje M452 = new PiezaoPersonaje(26, 13, "M452");
+	static PiezaoPersonaje M453 = new PiezaoPersonaje(26, 14, "M453");
+	static PiezaoPersonaje M454 = new PiezaoPersonaje(26, 15, "M454");
+	static PiezaoPersonaje M455 = new PiezaoPersonaje(26, 17, "M455");
+	static PiezaoPersonaje M456 = new PiezaoPersonaje(26, 18, "M456");
+	static PiezaoPersonaje M457 = new PiezaoPersonaje(26, 19, "M457");
+	static PiezaoPersonaje M458 = new PiezaoPersonaje(26, 21, "M458");
+	static PiezaoPersonaje M459 = new PiezaoPersonaje(26, 22, "M459");
+	static PiezaoPersonaje M460 = new PiezaoPersonaje(26, 23, "M460");
+	static PiezaoPersonaje M461 = new PiezaoPersonaje(26, 27, "M461");
+		//Muros 28va columna
+	static PiezaoPersonaje M462 = new PiezaoPersonaje(27, 2, "M462");
+	static PiezaoPersonaje M463 = new PiezaoPersonaje(27, 4, "M463");
+	static PiezaoPersonaje M464 = new PiezaoPersonaje(27, 6, "M464");
+	static PiezaoPersonaje M465 = new PiezaoPersonaje(27, 7, "M465");
+	static PiezaoPersonaje M466 = new PiezaoPersonaje(27, 9, "M466");
+	static PiezaoPersonaje M467 = new PiezaoPersonaje(27, 10, "M467");
+	static PiezaoPersonaje M468 = new PiezaoPersonaje(27, 11, "M468");
+	static PiezaoPersonaje M469 = new PiezaoPersonaje(27, 13, "M469");
+	static PiezaoPersonaje M470 = new PiezaoPersonaje(27, 14, "M470");
+	static PiezaoPersonaje M471 = new PiezaoPersonaje(27, 15, "M471");
+	static PiezaoPersonaje M472 = new PiezaoPersonaje(27, 17, "M472");
+	static PiezaoPersonaje M473 = new PiezaoPersonaje(27, 18, "M473");
+	static PiezaoPersonaje M474 = new PiezaoPersonaje(27, 19, "M474");
+	static PiezaoPersonaje M475 = new PiezaoPersonaje(27, 21, "M475");
+	static PiezaoPersonaje M476 = new PiezaoPersonaje(27, 22, "M476");
+	static PiezaoPersonaje M477 = new PiezaoPersonaje(27, 23, "M477");
+	static PiezaoPersonaje M478 = new PiezaoPersonaje(27, 25, "M478");
+	static PiezaoPersonaje M479 = new PiezaoPersonaje(27, 27, "M479");
+	static PiezaoPersonaje M480 = new PiezaoPersonaje(27, 3, "M480");
+	static PiezaoPersonaje M481 = new PiezaoPersonaje(27, 26, "M481");
+	
 		//Bolas 2nda columna
 	static PiezaoPersonaje B1 = new PiezaoPersonaje(1, 2, "B1");
 	static PiezaoPersonaje B2 = new PiezaoPersonaje(1, 3, "B2");
@@ -954,6 +987,60 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 	static JLabel Muro425 = new JLabel();
 	static JLabel Muro426 = new JLabel();
 	static JLabel Muro427 = new JLabel();
+	static JLabel Muro428 = new JLabel();
+	static JLabel Muro429 = new JLabel();
+	static JLabel Muro430 = new JLabel();
+	static JLabel Muro431 = new JLabel();
+	static JLabel Muro432 = new JLabel();
+	static JLabel Muro433 = new JLabel();
+	static JLabel Muro434 = new JLabel();
+	static JLabel Muro435 = new JLabel();
+	static JLabel Muro436 = new JLabel();
+	static JLabel Muro437 = new JLabel();
+	static JLabel Muro438 = new JLabel();
+	static JLabel Muro439 = new JLabel();
+	static JLabel Muro440 = new JLabel();
+	static JLabel Muro441 = new JLabel();
+	static JLabel Muro442 = new JLabel();
+	static JLabel Muro443 = new JLabel();
+	static JLabel Muro444 = new JLabel();
+	static JLabel Muro445 = new JLabel();
+	static JLabel Muro446 = new JLabel();
+	static JLabel Muro447 = new JLabel();
+	static JLabel Muro448 = new JLabel();
+	static JLabel Muro449 = new JLabel();
+	static JLabel Muro450 = new JLabel();
+	static JLabel Muro451 = new JLabel();
+	static JLabel Muro452 = new JLabel();
+	static JLabel Muro453 = new JLabel();
+	static JLabel Muro454 = new JLabel();
+	static JLabel Muro455 = new JLabel();
+	static JLabel Muro456 = new JLabel();
+	static JLabel Muro457 = new JLabel();
+	static JLabel Muro458 = new JLabel();
+	static JLabel Muro459 = new JLabel();
+	static JLabel Muro460 = new JLabel();
+	static JLabel Muro461 = new JLabel();
+	static JLabel Muro462 = new JLabel();
+	static JLabel Muro463 = new JLabel();
+	static JLabel Muro464 = new JLabel();
+	static JLabel Muro465 = new JLabel();
+	static JLabel Muro466 = new JLabel();
+	static JLabel Muro467 = new JLabel();
+	static JLabel Muro468 = new JLabel();
+	static JLabel Muro469 = new JLabel();
+	static JLabel Muro470 = new JLabel();
+	static JLabel Muro471 = new JLabel();
+	static JLabel Muro472 = new JLabel();
+	static JLabel Muro473 = new JLabel();
+	static JLabel Muro474 = new JLabel();
+	static JLabel Muro475 = new JLabel();
+	static JLabel Muro476 = new JLabel();
+	static JLabel Muro477 = new JLabel();
+	static JLabel Muro478 = new JLabel();
+	static JLabel Muro479 = new JLabel();
+	static JLabel Muro480 = new JLabel();
+	static JLabel Muro481 = new JLabel();
 	
 		//Bolas
 	static JLabel Bola1 = new JLabel();
@@ -1064,11 +1151,13 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 		pts.setBounds(278, 13, 56, 16);
 		VPM.getContentPane().add(pts);
 		
+		//Inicializar las direcciones de los fantasmas
 		direccionesF.add("arriba");		
 		direccionesF.add("derecha");
 		direccionesF.add("abajo");
 		direccionesF.add("izquierda");
-	
+		
+		//Adjuntar las imagenes a los labels, buscar: "Empiezan hilos"
 		Fantasma1.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/FantasmaRojo.jpg")));
 		Fantasma2.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/FantasmaAmarillo.jpg")));
 		PacMan.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/2000px-Pacman.svg.png")));
@@ -1500,6 +1589,60 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 		Muro425.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
 		Muro426.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
 		Muro427.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro428.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro429.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro430.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro431.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro432.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro433.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro434.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro435.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro436.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro437.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro438.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro439.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro440.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro441.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro442.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro443.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro444.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro445.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro446.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro447.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro448.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro449.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro450.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro451.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro452.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro453.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro454.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro455.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro456.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro457.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro458.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro459.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro460.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro461.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro462.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro463.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro464.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro465.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro466.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro467.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro468.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro469.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro470.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro471.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro472.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro473.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro474.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro475.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro476.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro477.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro478.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro479.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro480.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
+		Muro481.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/muroPacMan.png")));
 		
 			//Bolas
 		Bola1.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/BolaPM.png")));
@@ -1962,6 +2105,60 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 		VPM.add(Muro425);
 		VPM.add(Muro426);
 		VPM.add(Muro427);
+		VPM.add(Muro428);
+		VPM.add(Muro429);
+		VPM.add(Muro430);
+		VPM.add(Muro431);
+		VPM.add(Muro432);
+		VPM.add(Muro433);
+		VPM.add(Muro434);
+		VPM.add(Muro435);
+		VPM.add(Muro436);
+		VPM.add(Muro437);
+		VPM.add(Muro438);
+		VPM.add(Muro439);
+		VPM.add(Muro440);
+		VPM.add(Muro441);
+		VPM.add(Muro442);
+		VPM.add(Muro443);
+		VPM.add(Muro444);
+		VPM.add(Muro445);
+		VPM.add(Muro446);
+		VPM.add(Muro447);
+		VPM.add(Muro448);
+		VPM.add(Muro449);
+		VPM.add(Muro450);
+		VPM.add(Muro451);
+		VPM.add(Muro452);
+		VPM.add(Muro453);
+		VPM.add(Muro454);
+		VPM.add(Muro455);
+		VPM.add(Muro456);
+		VPM.add(Muro457);
+		VPM.add(Muro458);
+		VPM.add(Muro459);
+		VPM.add(Muro460);
+		VPM.add(Muro461);
+		VPM.add(Muro462);
+		VPM.add(Muro463);
+		VPM.add(Muro464);
+		VPM.add(Muro465);
+		VPM.add(Muro466);
+		VPM.add(Muro467);
+		VPM.add(Muro468);
+		VPM.add(Muro469);
+		VPM.add(Muro470);
+		VPM.add(Muro471);
+		VPM.add(Muro472);
+		VPM.add(Muro473);
+		VPM.add(Muro474);
+		VPM.add(Muro475);
+		VPM.add(Muro476);
+		VPM.add(Muro477);
+		VPM.add(Muro478);
+		VPM.add(Muro479);
+		VPM.add(Muro480);
+		VPM.add(Muro481);
 			//Bolas
 		VPM.add(Bola1);
 		VPM.add(Bola2);
@@ -1990,8 +2187,7 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 		VPM.add(Bola25);
 		VPM.add(Bola26);
 		VPM.add(Bola27);
-		VPM.add(Bola28);
-		
+		VPM.add(Bola28);		
 		
 		objMostrados.add(Fr);
 		objMostrados.add(Fa);
@@ -2417,6 +2613,60 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 		objMostrados.add(M425);
 		objMostrados.add(M426);
 		objMostrados.add(M427);
+		objMostrados.add(M428);
+		objMostrados.add(M429);
+		objMostrados.add(M430);
+		objMostrados.add(M431);
+		objMostrados.add(M432);
+		objMostrados.add(M433);
+		objMostrados.add(M434);
+		objMostrados.add(M435);
+		objMostrados.add(M436);
+		objMostrados.add(M437);
+		objMostrados.add(M438);
+		objMostrados.add(M439);
+		objMostrados.add(M440);
+		objMostrados.add(M441);
+		objMostrados.add(M442);
+		objMostrados.add(M443);
+		objMostrados.add(M444);
+		objMostrados.add(M445);
+		objMostrados.add(M446);
+		objMostrados.add(M447);
+		objMostrados.add(M448);
+		objMostrados.add(M449);
+		objMostrados.add(M450);
+		objMostrados.add(M451);
+		objMostrados.add(M452);
+		objMostrados.add(M453);
+		objMostrados.add(M454);
+		objMostrados.add(M455);
+		objMostrados.add(M456);
+		objMostrados.add(M457);
+		objMostrados.add(M458);
+		objMostrados.add(M459);
+		objMostrados.add(M460);
+		objMostrados.add(M461);
+		objMostrados.add(M462);
+		objMostrados.add(M463);
+		objMostrados.add(M464);
+		objMostrados.add(M465);
+		objMostrados.add(M466);
+		objMostrados.add(M467);
+		objMostrados.add(M468);
+		objMostrados.add(M469);
+		objMostrados.add(M470);
+		objMostrados.add(M471);
+		objMostrados.add(M472);
+		objMostrados.add(M473);
+		objMostrados.add(M474);
+		objMostrados.add(M475);
+		objMostrados.add(M476);
+		objMostrados.add(M477);
+		objMostrados.add(M478);
+		objMostrados.add(M479);
+		objMostrados.add(M480);
+		objMostrados.add(M481);
 		
 			//Bolas
 		objMostrados.add(B1);
@@ -2446,20 +2696,7 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 		objMostrados.add(B25);
 		objMostrados.add(B26);
 
-//		Thread puntos = new Thread() {
-//			public void run() {
-//				while (Integer.parseInt(vidas.getText()) > 0) {
-//				lock.lock();
-//				try {
-//					int x = listaComidos.size();
-//					pts.setText(x * 100 + "");
-//				}finally {
-//					lock.unlock();
-//				}
-//			 }
-//			}
-//		};puntos.start();
-
+		//Empiezan hilos
 		Thread movimiento = new Thread() {
 			public void run() {
 				while (Integer.parseInt(vidas.getText()) > 0) {
@@ -2618,6 +2855,7 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 	};apareceC.run();
 	}
 
+	//Buscar "Sigue aqui"
 	protected static void dibujar() {
 		// TODO Auto-generated method stub
 		PacMan.setBounds(PM.getCoorX()*20, PM.getCoorY()*20, 20, 20);
@@ -3045,6 +3283,60 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 		Muro425.setBounds(M425.getCoorX()*20, M425.getCoorY()*20, 20, 20);
 		Muro426.setBounds(M426.getCoorX()*20, M426.getCoorY()*20, 20, 20);
 		Muro427.setBounds(M427.getCoorX()*20, M427.getCoorY()*20, 20, 20);
+		Muro428.setBounds(M428.getCoorX()*20, M428.getCoorY()*20, 20, 20);
+		Muro429.setBounds(M429.getCoorX()*20, M429.getCoorY()*20, 20, 20);
+		Muro430.setBounds(M430.getCoorX()*20, M430.getCoorY()*20, 20, 20);
+		Muro431.setBounds(M431.getCoorX()*20, M431.getCoorY()*20, 20, 20);
+		Muro432.setBounds(M432.getCoorX()*20, M432.getCoorY()*20, 20, 20);
+		Muro433.setBounds(M433.getCoorX()*20, M433.getCoorY()*20, 20, 20);
+		Muro434.setBounds(M434.getCoorX()*20, M434.getCoorY()*20, 20, 20);
+		Muro435.setBounds(M435.getCoorX()*20, M435.getCoorY()*20, 20, 20);
+		Muro436.setBounds(M436.getCoorX()*20, M436.getCoorY()*20, 20, 20);
+		Muro437.setBounds(M437.getCoorX()*20, M437.getCoorY()*20, 20, 20);
+		Muro438.setBounds(M438.getCoorX()*20, M438.getCoorY()*20, 20, 20);
+		Muro439.setBounds(M439.getCoorX()*20, M439.getCoorY()*20, 20, 20);
+		Muro440.setBounds(M440.getCoorX()*20, M440.getCoorY()*20, 20, 20);
+		Muro441.setBounds(M441.getCoorX()*20, M441.getCoorY()*20, 20, 20);
+		Muro442.setBounds(M442.getCoorX()*20, M442.getCoorY()*20, 20, 20);
+		Muro443.setBounds(M443.getCoorX()*20, M443.getCoorY()*20, 20, 20);
+		Muro444.setBounds(M444.getCoorX()*20, M444.getCoorY()*20, 20, 20);
+		Muro445.setBounds(M445.getCoorX()*20, M445.getCoorY()*20, 20, 20);
+		Muro446.setBounds(M446.getCoorX()*20, M446.getCoorY()*20, 20, 20);
+		Muro447.setBounds(M447.getCoorX()*20, M447.getCoorY()*20, 20, 20);
+		Muro448.setBounds(M448.getCoorX()*20, M448.getCoorY()*20, 20, 20);
+		Muro449.setBounds(M449.getCoorX()*20, M449.getCoorY()*20, 20, 20);
+		Muro450.setBounds(M450.getCoorX()*20, M450.getCoorY()*20, 20, 20);
+		Muro451.setBounds(M451.getCoorX()*20, M451.getCoorY()*20, 20, 20);
+		Muro452.setBounds(M452.getCoorX()*20, M452.getCoorY()*20, 20, 20);
+		Muro453.setBounds(M453.getCoorX()*20, M453.getCoorY()*20, 20, 20);
+		Muro454.setBounds(M454.getCoorX()*20, M454.getCoorY()*20, 20, 20);
+		Muro455.setBounds(M455.getCoorX()*20, M455.getCoorY()*20, 20, 20);
+		Muro456.setBounds(M456.getCoorX()*20, M456.getCoorY()*20, 20, 20);
+		Muro457.setBounds(M457.getCoorX()*20, M457.getCoorY()*20, 20, 20);
+		Muro458.setBounds(M458.getCoorX()*20, M458.getCoorY()*20, 20, 20);
+		Muro459.setBounds(M459.getCoorX()*20, M459.getCoorY()*20, 20, 20);
+		Muro460.setBounds(M460.getCoorX()*20, M460.getCoorY()*20, 20, 20);
+		Muro461.setBounds(M461.getCoorX()*20, M461.getCoorY()*20, 20, 20);
+		Muro462.setBounds(M462.getCoorX()*20, M462.getCoorY()*20, 20, 20);
+		Muro463.setBounds(M463.getCoorX()*20, M463.getCoorY()*20, 20, 20);
+		Muro464.setBounds(M464.getCoorX()*20, M464.getCoorY()*20, 20, 20);
+		Muro465.setBounds(M465.getCoorX()*20, M465.getCoorY()*20, 20, 20);
+		Muro466.setBounds(M466.getCoorX()*20, M466.getCoorY()*20, 20, 20);
+		Muro467.setBounds(M467.getCoorX()*20, M467.getCoorY()*20, 20, 20);
+		Muro468.setBounds(M468.getCoorX()*20, M468.getCoorY()*20, 20, 20);
+		Muro469.setBounds(M469.getCoorX()*20, M469.getCoorY()*20, 20, 20);
+		Muro470.setBounds(M470.getCoorX()*20, M470.getCoorY()*20, 20, 20);
+		Muro471.setBounds(M471.getCoorX()*20, M471.getCoorY()*20, 20, 20);
+		Muro472.setBounds(M472.getCoorX()*20, M472.getCoorY()*20, 20, 20);
+		Muro473.setBounds(M473.getCoorX()*20, M473.getCoorY()*20, 20, 20);
+		Muro474.setBounds(M474.getCoorX()*20, M474.getCoorY()*20, 20, 20);
+		Muro475.setBounds(M475.getCoorX()*20, M475.getCoorY()*20, 20, 20);
+		Muro476.setBounds(M476.getCoorX()*20, M476.getCoorY()*20, 20, 20);
+		Muro477.setBounds(M477.getCoorX()*20, M477.getCoorY()*20, 20, 20);
+		Muro478.setBounds(M478.getCoorX()*20, M478.getCoorY()*20, 20, 20);
+		Muro479.setBounds(M479.getCoorX()*20, M479.getCoorY()*20, 20, 20);
+		Muro480.setBounds(M480.getCoorX()*20, M480.getCoorY()*20, 20, 20);
+		Muro481.setBounds(M481.getCoorX()*20, M481.getCoorY()*20, 20, 20);
 			//Bolas
 		Bola1.setBounds(B1.getCoorX()*20, B1.getCoorY()*20, 20, 20);
 		Bola2.setBounds(B2.getCoorX()*20, B2.getCoorY()*20, 20, 20);
@@ -3073,7 +3365,8 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 		Bola25.setBounds(B25.getCoorX()*20, B25.getCoorY()*20, 20, 20);
 		Bola26.setBounds(B26.getCoorX()*20, B26.getCoorY()*20, 20, 20);
 	}
-
+	
+	//Sigue aqui
 	public static void comer() {
 		int x = PM.getCoorX();
 		int y = PM.getCoorY();
