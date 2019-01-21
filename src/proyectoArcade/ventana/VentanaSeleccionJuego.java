@@ -65,7 +65,7 @@ public class VentanaSeleccionJuego extends JFrame {
 				main.leerFichero();
 				Thread hilo = new Thread() {
 					public void run() {
-						VentanaPM.main(anchura, altura, mute);
+						VentanaPM.main(900, 1000, mute);
 					};
 				};
 				hilo.start();

@@ -11,6 +11,7 @@ import proyectoArcade.ventana.VentanaScore;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.locks.ReentrantLock;
 import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
@@ -22,6 +23,8 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 	static PiezaoPersonaje PM = new PiezaoPersonaje(14, 14, "PM");
 	static PiezaoPersonaje Fr = new PiezaoPersonaje(1, 1, "Fr");
 	static PiezaoPersonaje Fa = new PiezaoPersonaje(1, 28, "Fa");
+	static PiezaoPersonaje Faz = new PiezaoPersonaje(28, 1, "Faz");
+	static PiezaoPersonaje Fro = new PiezaoPersonaje(28, 28, "Fro");
 	static PiezaoPersonaje C = new PiezaoPersonaje(14, 14, "C");
 		//Muros 1ra columna
 	static PiezaoPersonaje M1 = new PiezaoPersonaje(0, 0, "M1");
@@ -976,14 +979,14 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 	static PiezaoPersonaje B419 = new PiezaoPersonaje(10, 24, "B419");
 	
 		//Bola Fantasmas
-	static PiezaoPersonaje BF1 = new PiezaoPersonaje(3, 3, "BF1");
-	static PiezaoPersonaje BF2 = new PiezaoPersonaje(3, 26, "BF2");
-	static PiezaoPersonaje BF3 = new PiezaoPersonaje(9, 9, "BF3");
-	static PiezaoPersonaje BF4 = new PiezaoPersonaje(9, 20, "BF4");
-	static PiezaoPersonaje BF5 = new PiezaoPersonaje(20, 9, "BF5");
-	static PiezaoPersonaje BF6 = new PiezaoPersonaje(20, 20, "BF6");
-	static PiezaoPersonaje BF7 = new PiezaoPersonaje(26, 3, "BF7");
-	static PiezaoPersonaje BF8 = new PiezaoPersonaje(26, 26, "BF8");
+	static PiezaoPersonaje BF1 = new PiezaoPersonaje(3, 3, "BC1");
+	static PiezaoPersonaje BF2 = new PiezaoPersonaje(3, 26, "BC2");
+	static PiezaoPersonaje BF3 = new PiezaoPersonaje(9, 9, "BC3");
+	static PiezaoPersonaje BF4 = new PiezaoPersonaje(9, 20, "BC4");
+	static PiezaoPersonaje BF5 = new PiezaoPersonaje(20, 9, "BC5");
+	static PiezaoPersonaje BF6 = new PiezaoPersonaje(20, 20, "BC6");
+	static PiezaoPersonaje BF7 = new PiezaoPersonaje(26, 3, "BC7");
+	static PiezaoPersonaje BF8 = new PiezaoPersonaje(26, 26, "BC8");
 	
 		//Personaje
 	static JLabel Fantasma1 = new JLabel();
@@ -1995,6 +1998,8 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 		//Adjuntar las imagenes a los labels, buscar: "Empiezan hilos"
 		Fantasma1.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/FantasmaRojo.jpg")));
 		Fantasma2.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/FantasmaAmarillo.jpg")));
+		Fantasma3.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/FantasmaAzul.png")));
+		Fantasma4.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/FantasmaRosa.png")));
 		PacMan.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/2000px-Pacman.svg.png")));
 		Cereza.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/Cereza.jpg")));
 			//Muros
@@ -2912,6 +2917,8 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 		
 		VPM.add(Fantasma1);
 		VPM.add(Fantasma2);
+		VPM.add(Fantasma3);
+		VPM.add(Fantasma4);
 		VPM.add(PacMan);
 		VPM.add(Cereza);
 			//Muros
@@ -3827,6 +3834,8 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 		
 		objMostrados.add(Fr);
 		objMostrados.add(Fa);
+		objMostrados.add(Faz);
+		objMostrados.add(Fro);
 			//Muros
 		objMostrados.add(M1);
 		objMostrados.add(M2);
@@ -4739,11 +4748,16 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 		Thread movimiento = new Thread() {
 			public void run() {
 				while (Integer.parseInt(vidas.getText()) > 0) {
+					comprobarSiguiente(direccion);
 					comer(); 
 					pts.setText(listaComidos.size() * 100 + cerezasComidas.size() * 350 + "");
 					dibujar();
 					mover(direccion, PM);
-					comprobarSiguiente(direccion, PM);
+					mover(direccionF1, Fa);	
+					mover(direccionF2, Fr);	
+					mover(direccionF3, Faz);	
+					mover(direccionF4, Fro);	
+					comprobarSiguiente(direccion);
 					try {
 						Thread.sleep(200);
 					} catch (InterruptedException e) {
@@ -4777,9 +4791,6 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 						numero4 = (int) (Math.random() * 4);
 						direccionF4 = direccionesF.get(numero4);
 						x = 0;
-					}if(x < 4) {
-					mover(direccionF1, Fa);	
-					mover(direccionF2, Fr);	
 					}x+=1;
 					try {
 						Thread.sleep(100);
@@ -4843,10 +4854,16 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 					if(objeto.getColor().contains("FA")) {
 						Fantasma1.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/FantasmaRojo.jpg")));
 						Fantasma2.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/FantasmaAmarillo.jpg")));
+						Fantasma3.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/FantasmaAzul.png")));
+						Fantasma4.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/FantasmaRosa.png")));
 						if(objeto.getColor().equals("FA_1")) {
 						objeto.setColor("Fr");
 						}if(objeto.getColor().equals("FA_2")) {
 						objeto.setColor("Fa");
+						}if(objeto.getColor().equals("FA_3")) {
+						objeto.setColor("Faz");
+						}if(objeto.getColor().equals("FA_4")) {
+						objeto.setColor("Fro");
 						}
 						FAExiste = false;
 					}
@@ -4871,14 +4888,15 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 		}
 		}
 	};cambiarF.start();
-
+	
+//Por alguna razon no me detecta cuando como la cereza, dejo el metodo aqui, pero no hace nada
 	Thread apareceC = new Thread() {
 		public void run() {
 			int x = 0;
 			Cereza.setVisible(false);
 			while (Integer.parseInt(vidas.getText()) > 0) {
 				if(x == 7 && !(Cereza.isVisible())) {
-					Cereza.setVisible(true);
+					Cereza.setVisible(false);
 					Cereza.setBounds(C.getCoorX()*20, C.getCoorY()*20, 20, 20);
 					x = 0;
 				}if(x == 7 && Cereza.isVisible()) {
@@ -4901,6 +4919,8 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 		PacMan.setBounds(PM.getCoorX()*20, PM.getCoorY()*20, 20, 20);
 		Fantasma1.setBounds(Fr.getCoorX()*20, Fr.getCoorY()*20, 20, 20);
 		Fantasma2.setBounds(Fa.getCoorX()*20, Fa.getCoorY()*20, 20, 20);
+		Fantasma4.setBounds(Fro.getCoorX()*20, Fro.getCoorY()*20, 20, 20);
+		Fantasma3.setBounds(Faz.getCoorX()*20, Faz.getCoorY()*20, 20, 20);
 			//Muros
 		Muro1.setBounds(M1.getCoorX()*20, M1.getCoorY()*20, 20, 20);
 		Muro2.setBounds(M2.getCoorX()*20, M2.getCoorY()*20, 20, 20);
@@ -5767,7 +5787,7 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 		Bola387.setBounds(B387.getCoorX()*20, B387.getCoorY()*20, 20, 20);
 		Bola388.setBounds(B388.getCoorX()*20, B388.getCoorY()*20, 20, 20);
 		Bola389.setBounds(B389.getCoorX()*20, B389.getCoorY()*20, 20, 20);
-		Bola390.setBounds(B390.getCoorX()*20, B380.getCoorY()*20, 20, 20);
+		Bola390.setBounds(B390.getCoorX()*20, B390.getCoorY()*20, 20, 20);
 		Bola391.setBounds(B391.getCoorX()*20, B391.getCoorY()*20, 20, 20);
 		Bola392.setBounds(B392.getCoorX()*20, B392.getCoorY()*20, 20, 20);
 		Bola393.setBounds(B393.getCoorX()*20, B393.getCoorY()*20, 20, 20);
@@ -5823,7 +5843,9 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 					PM.setCoorX(14);	PM.setCoorY(14);
 					Fr.setCoorX(1);		Fr.setCoorY(1);
 					Fa.setCoorX(1);		Fa.setCoorY(28);
-				}
+					Fro.setCoorX(28);	Fro.setCoorY(28);
+					Faz.setCoorX(28);	Faz.setCoorY(1);
+				}//Todas las bolas posibles
 				if (objMostrados.get(objeto).getColor().equals("B1")) {
 					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
 					objMostrados.remove(objeto);
@@ -5836,37 +5858,2563 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 					Bola2.setVisible(false);
 					objeto = 0;
 					break;
+				}if (objMostrados.get(objeto).getColor().equals("B3")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola3.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B4")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola4.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B5")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola5.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B6")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola6.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B7")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola7.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B8")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola8.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B9")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola9.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B10")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola10.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B11")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola11.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B12")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola12.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B13")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola13.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B14")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola14.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B15")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola15.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B16")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola16.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B17")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola17.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B18")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola18.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B19")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola19.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B20")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola20.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B21")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola21.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B22")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola22.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B23")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola23.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B24")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola24.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B25")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola25.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B26")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola26.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B27")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola27.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B28")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola28.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B29")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola29.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B30")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola30.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B31")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola31.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B32")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola32.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B33")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola33.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B34")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola34.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B35")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola35.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B36")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola36.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B37")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola37.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B38")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola38.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B39")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola39.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B40")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola40.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B41")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola41.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B42")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola42.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B43")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola43.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B44")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola44.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B45")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola45.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B46")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola46.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B47")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola47.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B48")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola48.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B49")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola49.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B50")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola50.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B51")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola51.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B52")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola52.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B53")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola53.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B54")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola54.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B55")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola55.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B56")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola56.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B57")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola57.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B58")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola58.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B59")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola59.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B60")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola60.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B61")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola61.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B62")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola62.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B63")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola63.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B64")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola64.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B65")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola65.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B66")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola66.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B67")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola67.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B68")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola68.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B69")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola69.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B70")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola70.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B71")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola71.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B72")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola72.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B73")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola73.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B74")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola74.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B75")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola75.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B76")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola76.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B77")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola77.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B78")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola78.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B79")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola79.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B80")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola80.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B81")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola81.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B82")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola82.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B83")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola83.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B84")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola84.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B85")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola85.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B86")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola86.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B87")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola87.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B88")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola88.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B89")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola89.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B90")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola90.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B91")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola91.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B92")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola92.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B93")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola93.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B94")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola94.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B95")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola95.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B96")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola96.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B97")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola97.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B98")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola98.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B99")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola99.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B100")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola100.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B101")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola101.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B102")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola102.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B103")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola103.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B104")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola104.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B105")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola105.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B106")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola106.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B107")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola107.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B108")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola108.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B109")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola109.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B110")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola110.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B111")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola111.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B112")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola112.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B113")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola113.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B114")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola114.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B115")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola115.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B116")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola116.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B117")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola117.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B118")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola118.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B119")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola119.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B120")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola120.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B121")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola121.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B122")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola122.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B123")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola123.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B124")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola124.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B125")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola125.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B126")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola126.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B127")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola127.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B128")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola128.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B129")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola129.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B130")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola130.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B131")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola131.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B132")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola132.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B133")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola133.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B134")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola134.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B135")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola135.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B136")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola136.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B137")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola137.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B138")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola138.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B139")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola139.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B140")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola140.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B141")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola141.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B142")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola142.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B143")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola143.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B144")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola144.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B145")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola145.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B146")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola146.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B147")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola147.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B148")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola148.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B149")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola149.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B150")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola150.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B151")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola151.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B152")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola152.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B153")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola153.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B154")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola154.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B155")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola155.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B156")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola156.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B157")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola157.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B158")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola158.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B159")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola159.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B160")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola160.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B161")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola161.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B162")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola162.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B163")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola163.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B164")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola164.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B165")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola165.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B166")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola166.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B167")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola167.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B168")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola168.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B169")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola169.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B170")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola170.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B171")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola171.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B172")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola172.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B173")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola173.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B174")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola174.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B175")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola175.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B176")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola176.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B177")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola177.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B178")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola178.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B179")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola179.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B180")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola180.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B181")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola181.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B182")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola182.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B183")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola183.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B184")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola184.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B185")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola185.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B186")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola186.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B187")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola187.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B188")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola188.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B189")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola189.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B190")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola190.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B191")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola191.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B192")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola192.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B193")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola193.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B194")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola194.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B195")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola195.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B196")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola196.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B197")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola197.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B198")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola198.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B199")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola199.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B200")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola200.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B201")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola201.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B202")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola202.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B203")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola203.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B204")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola204.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B205")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola205.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B206")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola206.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B207")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola207.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B208")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola208.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B209")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola209.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B210")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola210.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B211")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola211.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B212")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola212.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B213")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola213.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B214")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola214.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B215")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola215.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B216")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola216.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B217")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola217.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B218")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola218.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B219")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola219.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B220")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola220.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B221")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola221.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B222")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola222.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B223")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola223.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B224")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola224.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B225")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola225.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B226")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola226.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B227")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola227.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B228")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola228.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B229")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola229.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B230")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola230.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B231")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola231.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B232")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola232.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B233")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola233.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B234")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola234.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B235")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola235.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B236")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola236.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B237")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola237.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B238")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola238.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B239")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola239.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B240")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola240.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B241")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola241.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B242")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola242.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B243")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola243.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B244")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola244.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B245")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola245.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B246")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola246.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B247")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola247.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B248")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola248.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B249")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola249.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B250")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola250.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B251")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola251.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B252")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola252.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B253")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola253.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B254")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola254.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B255")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola255.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B256")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola256.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B257")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola257.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B258")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola258.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B259")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola259.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B260")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola260.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B261")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola261.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B262")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola262.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B263")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola263.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B264")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola264.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B265")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola265.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B266")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola266.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B267")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola267.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B268")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola268.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B269")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola269.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B270")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola270.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B271")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola271.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B272")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola272.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B273")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola273.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B274")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola274.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B275")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola275.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B276")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola276.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B277")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola277.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B278")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola278.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B279")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola279.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B280")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola280.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B281")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola281.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B282")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola282.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B283")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola283.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B284")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola284.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B285")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola285.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B286")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola286.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B287")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola287.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B288")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola288.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B289")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola289.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B290")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola290.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B291")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola291.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B292")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola292.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B293")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola293.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B294")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola294.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B295")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola295.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B296")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola296.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B297")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola297.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B298")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola298.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B299")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola299.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B300")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola300.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B301")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola301.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B302")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola302.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B303")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola303.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B304")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola304.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B305")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola305.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B306")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola306.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B307")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola307.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B308")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola308.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B309")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola309.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B310")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola310.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B311")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola311.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B312")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola312.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B313")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola313.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B314")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola314.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B315")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola315.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B316")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola316.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B317")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola317.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B318")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola318.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B319")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola319.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B320")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola320.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B321")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola321.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B322")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola322.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B323")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola323.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B324")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola324.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B325")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola325.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B326")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola326.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B327")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola327.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B328")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola328.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B329")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola329.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B330")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola330.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B331")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola331.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B332")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola332.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B333")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola333.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B334")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola334.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B335")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola335.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B336")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola336.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B337")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola337.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B338")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola338.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B339")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola339.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B340")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola340.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B341")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola341.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B342")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola342.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B343")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola343.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B344")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola344.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B345")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola345.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B346")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola346.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B347")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola347.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B348")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola348.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B349")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola349.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B350")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola350.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B351")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola351.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B352")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola352.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B353")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola353.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B354")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola354.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B355")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola355.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B356")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola356.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B357")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola357.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B358")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola358.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B359")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola359.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B360")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola360.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B361")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola361.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B362")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola362.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B363")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola363.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B364")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola364.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B365")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola365.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B366")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola366.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B367")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola367.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B368")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola368.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B369")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola369.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B370")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola370.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B371")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola371.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B372")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola372.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B373")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola373.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B374")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola374.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B375")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola375.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B376")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola376.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B377")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola377.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B378")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola378.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B379")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola379.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B380")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola380.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B381")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola381.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B382")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola382.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B383")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola383.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B384")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola384.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B385")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola385.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B386")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola386.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B387")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola387.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B388")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola388.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B389")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola389.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B390")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola390.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B391")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola391.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B392")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola392.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B393")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola393.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B394")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola394.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B395")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola395.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B396")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola396.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B397")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola397.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B398")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola398.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("399")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola399.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B400")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola400.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B401")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola401.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B402")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola402.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B403")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola403.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B404")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola404.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B405")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola405.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B406")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola406.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B407")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola407.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B408")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola408.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B409")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola409.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B410")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola410.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B411")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola411.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B412")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola412.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B413")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola413.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B414")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola414.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B415")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola415.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B416")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola416.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B417")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola417.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B418")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola418.setVisible(false);
+					objeto = 0;
+					break;
+				}if (objMostrados.get(objeto).getColor().equals("B419")) {
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
+					objMostrados.remove(objeto);
+					Bola419.setVisible(false);
+					objeto = 0;
+					break;
 				}
-				if (objMostrados.get(objeto).getColor().contains("BF")) {
-					if(objMostrados.get(objeto).getColor().equals("BF")) {
-//						imagen3.setVisible(false);
+			
+			
+				if (objMostrados.get(objeto).getColor().contains("BC")) {
+					if(objMostrados.get(objeto).getColor().equals("BF1")) {
+						BolaFantasma1.setVisible(false);
+					}if(objMostrados.get(objeto).getColor().equals("BF2")) {
+						BolaFantasma2.setVisible(false);
+					}if(objMostrados.get(objeto).getColor().equals("BF3")) {
+						BolaFantasma3.setVisible(false);
+					}if(objMostrados.get(objeto).getColor().equals("BF4")) {
+						BolaFantasma4.setVisible(false);
+					}if(objMostrados.get(objeto).getColor().equals("BF5")) {
+						BolaFantasma5.setVisible(false);
+					}if(objMostrados.get(objeto).getColor().equals("BF6")) {
+						BolaFantasma6.setVisible(false);
+					}if(objMostrados.get(objeto).getColor().equals("BF7")) {
+						BolaFantasma7.setVisible(false);
+					}if(objMostrados.get(objeto).getColor().equals("BF8")) {
+						BolaFantasma8.setVisible(false);
 					}
 					objMostrados.remove(objeto);
 					Fantasma1.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/FantasmaAzul.jpg")));
 					Fantasma2.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/FantasmaAzul.jpg")));
+					Fantasma3.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/FantasmaAzul.jpg")));
+					Fantasma4.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/FantasmaAzul.jpg")));
 					Fr.setColor("FA_1");
 					Fa.setColor("FA_2");
+					Faz.setColor("Fa_3");
+					Fro.setColor("FA_4");
 					break;
 				}
 				if (objMostrados.get(objeto).getColor().equals("FA_1")) {
 					objMostrados.get(objeto).setColor("Fr");
 					Fantasma1.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/FantasmaRojo.jpg")));
-					objMostrados.get(objeto).setCoorX(1);
-					objMostrados.get(objeto).setCoorY(14);
+					objMostrados.get(objeto).setCoorX(1);	objMostrados.get(objeto).setCoorY(1);
 					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
 				}
 				if (objMostrados.get(objeto).getColor().equals("FA_2")) {
 					objMostrados.get(objeto).setColor("Fa");
 					Fantasma2.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/FantasmaAmarillo.jpg")));
-					objMostrados.get(objeto).setCoorX(1);
-					objMostrados.get(objeto).setCoorY(28);
+					objMostrados.get(objeto).setCoorX(1);	objMostrados.get(objeto).setCoorY(28);
 					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
 				}
 				if (objMostrados.get(objeto).getColor().equals("FA_3")) {
-					
+					objMostrados.get(objeto).setColor("Faz");
+					Fantasma1.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/FantasmaRojo.jpg")));
+					objMostrados.get(objeto).setCoorX(28);	objMostrados.get(objeto).setCoorY(1);
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
 				}
 				if (objMostrados.get(objeto).getColor().equals("FA_4")) {
-	
+					objMostrados.get(objeto).setColor("Fro");
+					Fantasma1.setIcon(new ImageIcon(VentanaPM.class.getResource("/imagenes/FantasmaRojo.jpg")));
+					objMostrados.get(objeto).setCoorX(28);	objMostrados.get(objeto).setCoorY(28);
+					listaComidos.add(new PiezaoPersonaje(objMostrados.get(objeto).getCoorX(), objMostrados.get(objeto).getCoorY(), objMostrados.get(objeto).getColor()));
 				}
 				if (objMostrados.get(objeto).getColor().equals("C")) {
 					System.out.println("Cereza");
@@ -5890,6 +8438,7 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 			}
 		}
 	}
+		
 	//Metodo mover
 	public static void mover(String direccion, PiezaoPersonaje F) {	
 		if(F.getColor().equals("PM")) {
@@ -5931,9 +8480,9 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 	}
 	//Metodo comprobar si la siguiente casilla va ha ser un muro o un fantasma, si muro PM se para en la casilla que
 	//esta, si fantasa se le quita una vida a PM y se vuelve alinicio cadapersonaje
-	public static void comprobarSiguiente(String direccion, PiezaoPersonaje F) {
-		int x = F.getCoorX();
-		int y = F.getCoorY();
+	public static void comprobarSiguiente(String direccion) {
+		int x = PM.getCoorX();
+		int y = PM.getCoorY();
 		if(direccion.equals("derecha")) {
 			for(int objeto = 0; objeto < objMostrados.size(); objeto ++){
 				if(objMostrados.get(objeto).getColor().contains("F")) {
@@ -5988,6 +8537,7 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 			}
 		}
 	}
+	
 	
 	private static void closeWindow(VentanaPM VPM) {
 		VPM.dispose(); // eliminar el hilo
