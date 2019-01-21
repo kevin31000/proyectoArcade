@@ -638,7 +638,7 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 	static PiezaoPersonaje B107 = new PiezaoPersonaje(2, 13, "B107");
 	static PiezaoPersonaje B108 = new PiezaoPersonaje(2, 17, "B108");
 	static PiezaoPersonaje B109 = new PiezaoPersonaje(2, 21, "B109");
-	static PiezaoPersonaje B111 = new PiezaoPersonaje(2, 24, "B110");
+	static PiezaoPersonaje B111 = new PiezaoPersonaje(2, 24, "B111");
 		//Bola 3a columna
 	static PiezaoPersonaje B112 = new PiezaoPersonaje(3, 4, "B112");
 	static PiezaoPersonaje B113 = new PiezaoPersonaje(3, 5, "B113");
