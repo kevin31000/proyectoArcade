@@ -1,6 +1,6 @@
 //Buscar con ctrl+F "Empieza aqui" o linea 1968
 
-package PacMan;
+package pacMan;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -4749,6 +4749,10 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 			public void run() {
 				while (Integer.parseInt(vidas.getText()) > 0) {
 					comprobarSiguiente(direccion);
+					comprobarSiguienteFantasma(direccionF1, Fa);
+					comprobarSiguienteFantasma(direccionF2, Fr);
+					comprobarSiguienteFantasma(direccionF3, Faz);
+					comprobarSiguienteFantasma(direccionF4, Fro);
 					comer(); 
 					pts.setText(listaComidos.size() * 100 + cerezasComidas.size() * 350 + "");
 					dibujar();
@@ -8480,58 +8484,124 @@ public class VentanaPM extends JFrame {//Para encontrar una ve ya terminada la c
 	}
 	//Metodo comprobar si la siguiente casilla va ha ser un muro o un fantasma, si muro PM se para en la casilla que
 	//esta, si fantasa se le quita una vida a PM y se vuelve alinicio cadapersonaje
+	public static void comprobarSiguienteFantasma(String direccion, PiezaoPersonaje F) {
+		int x = F.getCoorX();
+		int y = F.getCoorY();
+		if(direccion.equals("derecha")) {
+			for(int objeto = 0; objeto < objMostrados.size(); objeto ++){
+				if(objMostrados.get(objeto).getColor().contains("M")) {
+					if(x + 1 == objMostrados.get(objeto).getCoorX() && y == objMostrados.get(objeto).getCoorY()) {
+						if(F.getColor().equals("Fr")) {
+							setDireccionF1("izquierda");
+						}if(F.getColor().equals("Fa")) {
+							setDireccionF2("izquierda");
+						}if(F.getColor().equals("Faz")) {
+							setDireccionF3("izquierda");
+						}if(F.getColor().equals("Fro")) {
+							setDireccionF4("izquierda");
+						}
+					}
+				}
+			}
+		}if(direccion.equals("izquierda")) {
+			for(int objeto = 0; objeto < objMostrados.size(); objeto ++){
+				if(objMostrados.get(objeto).getColor().contains("M")) {
+					if(x - 1 == objMostrados.get(objeto).getCoorX()  && y == objMostrados.get(objeto).getCoorY()) {
+						if(F.getColor().equals("Fa")) {
+						setDireccionF1("derecha");
+						}if(F.getColor().equals("Fr")) {
+						setDireccionF2("derecha");
+						}if(F.getColor().equals("Faz")) {
+						setDireccionF3("derecha");
+						}if(F.getColor().equals("Fro")) {
+						setDireccionF4("derecha");
+						}
+					}
+				}
+			}
+		}if(direccion.equals("arriba")) {
+			for(int objeto = 0; objeto < objMostrados.size(); objeto ++){
+				if(objMostrados.get(objeto).getColor().contains("M")) {
+					if(y - 1 == objMostrados.get(objeto).getCoorY() && x == objMostrados.get(objeto).getCoorX()) {
+						if(F.getColor().equals("Fr")) {
+							setDireccionF1("abajo");
+						}if(F.getColor().equals("Fa")) {
+							setDireccionF2("abajo");
+						}if(F.getColor().equals("Faz")) {
+							setDireccionF3("abajo");
+						}if(F.getColor().equals("Fro")) {
+							setDireccionF4("abajo");
+						}
+					}
+				}
+			}
+		}if(direccion.equals("abajo")) {
+			for(int objeto = 0; objeto < objMostrados.size(); objeto ++){
+				if(objMostrados.get(objeto).getColor().contains("M")) {
+					if(y + 1== objMostrados.get(objeto).getCoorY() && x == objMostrados.get(objeto).getCoorX()) {
+						if(F.getColor().equals("Fr")) {
+							setDireccionF1("arriba");
+						}if(F.getColor().equals("Fa")) {
+							setDireccionF2("arriba");
+						}if(F.getColor().equals("Faz")) {
+							setDireccionF3("arriba");
+						}if(F.getColor().equals("Fro")) {
+							setDireccionF4("arriba");
+						}
+					}
+				}
+			}
+		}
+	}
+	
 	public static void comprobarSiguiente(String direccion) {
 		int x = PM.getCoorX();
 		int y = PM.getCoorY();
 		if(direccion.equals("derecha")) {
 			for(int objeto = 0; objeto < objMostrados.size(); objeto ++){
 				if(objMostrados.get(objeto).getColor().contains("F")) {
-					if(x == objMostrados.get(objeto).getCoorX() + 1 && y == objMostrados.get(objeto).getCoorY()) {
+					if(x + 1 == objMostrados.get(objeto).getCoorX()  && y == objMostrados.get(objeto).getCoorY()) {
 						vidas.setText(Integer.parseInt(vidas.getText()) -1 + "");
 					}
 				}if(objMostrados.get(objeto).getColor().contains("M")) {
-					if(x == objMostrados.get(objeto).getCoorX() + 1 && y == objMostrados.get(objeto).getCoorY()) {
+					if(x + 1 == objMostrados.get(objeto).getCoorX() && y == objMostrados.get(objeto).getCoorY()) {
 						setDireccion("nada");
-						PM.setCoorX(PM.getCoorX() - 2);
 					}
 				}
 			}
 		}if(direccion.equals("izquierda")) {
 			for(int objeto = 0; objeto < objMostrados.size(); objeto ++){
 				if(objMostrados.get(objeto).getColor().contains("F")) {
-					if(x == objMostrados.get(objeto).getCoorX() - 1 && y == objMostrados.get(objeto).getCoorY()) {
+					if(x - 1== objMostrados.get(objeto).getCoorX()  && y == objMostrados.get(objeto).getCoorY()) {
 						vidas.setText(Integer.parseInt(vidas.getText()) -1 + "");
 					}
 				}if(objMostrados.get(objeto).getColor().contains("M")) {
-					if(x == objMostrados.get(objeto).getCoorX() - 1 && y == objMostrados.get(objeto).getCoorY()) {
+					if(x - 1 == objMostrados.get(objeto).getCoorX()  && y == objMostrados.get(objeto).getCoorY()) {
 						setDireccion("nada");
-						PM.setCoorX(PM.getCoorX() + 2);
 					}
 				}
 			}
 		}if(direccion.equals("arriba")) {
 			for(int objeto = 0; objeto < objMostrados.size(); objeto ++){
 				if(objMostrados.get(objeto).getColor().contains("F")) {
-					if(y == objMostrados.get(objeto).getCoorY() - 1 && x == objMostrados.get(objeto).getCoorX()) {
+					if(y - 1 == objMostrados.get(objeto).getCoorY() && x == objMostrados.get(objeto).getCoorX()) {
 						vidas.setText(Integer.parseInt(vidas.getText()) -1 + "");
 					}
 				}if(objMostrados.get(objeto).getColor().contains("M")) {
-					if(y == objMostrados.get(objeto).getCoorY() - 1 && x == objMostrados.get(objeto).getCoorX()) {
+					if(y - 1 == objMostrados.get(objeto).getCoorY() && x == objMostrados.get(objeto).getCoorX()) {
 						setDireccion("nada");
-						PM.setCoorY(PM.getCoorY() + 2);
 					}
 				}
 			}
 		}if(direccion.equals("abajo")) {
 			for(int objeto = 0; objeto < objMostrados.size(); objeto ++){
 				if(objMostrados.get(objeto).getColor().contains("F")) {
-					if(y == objMostrados.get(objeto).getCoorY() + 1 && x == objMostrados.get(objeto).getCoorX()) {
+					if(y + 1 == objMostrados.get(objeto).getCoorY() && x == objMostrados.get(objeto).getCoorX()) {
 						vidas.setText(Integer.parseInt(vidas.getText()) -1 + "");
 					}
 				}if(objMostrados.get(objeto).getColor().contains("M")) {
-					if(y == objMostrados.get(objeto).getCoorY() + 1 && x == objMostrados.get(objeto).getCoorX()) {
+					if(y + 1== objMostrados.get(objeto).getCoorY() && x == objMostrados.get(objeto).getCoorX()) {
 						setDireccion("nada");
-						PM.setCoorY(PM.getCoorY() - 2);
 					}
 				}
 			}

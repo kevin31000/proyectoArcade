@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import proyectoArcade.main;
-import PacMan.VentanaPM;
+import pacMan.VentanaPM;
 import tetris.GestionPrincipal;
 
 import javax.swing.JButton;
